@@ -29,10 +29,10 @@ API_KEY = os.environ.get("GALLERY_DRIVE_API_KEY", "PASTE_YOUR_GOOGLE_API_KEY_HER
 EVENTS = [
     {"id":"texavision",  "title":"TEXAVISION — Annual Fest", "date":"January",
      "featured":True,  "blurb":"The institute's flagship annual festival.",
-     "folder":"https://drive.google.com/drive/folders/PASTE_FOLDER_ID"},
+     "folder":"https://drive.google.com/drive/folders/1lSDAKhuaTHmMIHYvVZTdSf_O4oYWtK16"},
     {"id":"convocation", "title":"Convocation & Farewell",   "date":"Academic Year",
      "featured":False, "blurb":"Celebrating our graduating batches.",
-     "folder":"PASTE_FOLDER_ID"},
+     "folder":"1lSDAKhuaTHmMIHYvVZTdSf_O4oYWtK16"},
     # add more events here...
 ]
 
