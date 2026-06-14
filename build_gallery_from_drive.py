@@ -27,9 +27,9 @@ API_KEY = os.environ.get("GALLERY_DRIVE_API_KEY", "PASTE_YOUR_GOOGLE_API_KEY_HER
 # id: short slug · title: shown on the card · date: free text · featured: one True
 # folder: the Drive folder share URL or just its id
 EVENTS = [
-    {"id":"texavision",  "title":"TEXAVISION — Annual Fest", "date":"January",
-     "featured":True,  "blurb":"The institute's flagship annual festival.",
-     "folder":"https://drive.google.com/drive/folders/1lSDAKhuaTHmMIHYvVZTdSf_O4oYWtK16"},
+    {"id":"happy_days",  "title":"Happy Days", "date":"January",
+     "featured":True,  "blurb":"The institute's vibe.",
+     "folder":"https://drive.google.com/drive/folders/1OXo2-yJU6UbCF2UOaLFfkHxpFiQDIB3Q"},
     {"id":"convocation", "title":"Convocation & Farewell",   "date":"Academic Year",
      "featured":False, "blurb":"Celebrating our graduating batches.",
      "folder":"1lSDAKhuaTHmMIHYvVZTdSf_O4oYWtK16"},
