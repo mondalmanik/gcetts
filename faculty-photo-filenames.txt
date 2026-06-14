@@ -1,0 +1,45 @@
+Save each faculty photo into  assets/faculty/  using EXACTLY these names:
+(the page already points to these paths)
+
+
+# Computer Science & Engineering
+  assets/faculty/cse-dipak-kumar-kole.jpg   <-  Dr. Dipak Kumar Kole
+  assets/faculty/cse-krishan-kundu.jpg   <-  Dr. Krishan Kundu
+  assets/faculty/cse-manik-mondal.jpg   <-  Mr. Manik Mondal
+  assets/faculty/cse-manjari-saha.jpg   <-  Mrs. Manjari Saha
+  assets/faculty/cse-prasanta-mandal.jpg   <-  Mr. Prasanta Mandal
+  assets/faculty/cse-preetam-kumar-sur.jpg   <-  Mr. Preetam Kumar Sur
+  assets/faculty/cse-sourav-de.jpg   <-  Dr. Sourav De
+
+# Information Technology
+  assets/faculty/it-biswajit-sanyal.jpg   <-  Dr. Biswajit Sanyal
+  assets/faculty/it-pijush-kanti-kumar.jpg   <-  Mr. Pijush Kanti Kumar
+  assets/faculty/it-pranay-adak.jpg   <-  Mr. Pranay Adak
+  assets/faculty/it-sima-ghosh.jpg   <-  Mrs. Sima Ghosh
+  assets/faculty/it-tapan-mandal.jpg   <-  Dr. Tapan Mandal
+
+# Textile Technology
+  assets/faculty/tt-adwaita-konar.jpg   <-  Dr. Adwaita Konar
+  assets/faculty/tt-arijit-chakraborty.jpg   <-  Dr. Arijit Chakraborty
+  assets/faculty/tt-sudipta-sekhar-mahish.jpg   <-  Dr. Sudipta Sekhar Mahish
+  assets/faculty/tt-suchibrata-ray.jpg   <-  Dr. Suchibrata Ray
+  assets/faculty/tt-anirban-dutta.jpg   <-  Dr. Anirban Dutta
+  assets/faculty/tt-aranya-mallick.jpg   <-  Dr. Aranya Mallick
+  assets/faculty/tt-mallika-datta.jpg   <-  Dr. Mallika Datta
+  assets/faculty/tt-md-samsu-alam.jpg   <-  Dr. Md. Samsu Alam
+  assets/faculty/tt-sajal-barman.jpg   <-  Mr. Sajal Barman
+  assets/faculty/tt-susanta-sekhar-de.jpg   <-  Mr. Susanta Sekhar De
+
+# Basic Engineering
+  assets/faculty/be-dipankar-chatterjee.jpg   <-  Dr. Dipankar Chatterjee
+  assets/faculty/be-priyajit-mukherjee.jpg   <-  Dr. Priyajit Mukherjee
+  assets/faculty/be-tripuresh-deb-singha.jpg   <-  Dr. Tripuresh Deb Singha
+
+# Basic Sciences
+  assets/faculty/bs-arnab-kumar-de.jpg   <-  Dr. Arnab Kumar De
+  assets/faculty/bs-dilip-maji.jpg   <-  Dr. Dilip Maji
+  assets/faculty/bs-prabir-kumar-mukherjee.jpg   <-  Dr. Prabir Kumar Mukherjee
+  assets/faculty/bs-seemantini-chattopadhyay.jpg   <-  Dr. Seemantini Chattopadhyay
+
+# Library
+  assets/faculty/lib-ananda-majumdar.jpg   <-  Mr. Ananda Majumdar
