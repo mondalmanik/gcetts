@@ -52,6 +52,8 @@ ul{list-style:none}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:74px}
 .brand{display:flex;align-items:center;gap:13px}
 .crest{width:46px;height:46px;flex:0 0 auto}
+.brand-logo{height:42px;width:auto;flex:0 0 auto;object-fit:contain}
+@media(max-width:520px){.brand-logo{height:34px}}
 .brand-txt b{font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;line-height:1.05;letter-spacing:-.01em;display:block;color:var(--indigo-900)}
 .brand-txt span{font-family:'Spline Sans Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
 .navlinks{display:none;align-items:center;gap:4px}
@@ -237,7 +239,7 @@ function Header(){
       </div></div>
       <header className="header"><div className="wrap">
         <nav className="nav" aria-label="Primary">
-          <a className="brand" href="index.html" aria-label="GCETTS home"><Crest/><span className="brand-txt"><b>GCETTS</b><span>Serampore · Est. 1908</span></span></a>
+          <a className="brand" href="index.html" aria-label="GCETTS home"><img className="brand-logo" src="logo-left.png" alt="" onError={e=>{e.currentTarget.style.display='none';}} /><span className="brand-txt"><b>GCETTS</b><span>Serampore · Est. 1908</span></span><img className="brand-logo" src="logo-right.png" alt="" onError={e=>{e.currentTarget.style.display='none';}} /></a>
           <div className="navlinks">
             <a href="index.html#home">Home</a>
             <a href="index.html#institute">Institute</a>
