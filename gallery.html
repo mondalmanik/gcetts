@@ -288,6 +288,7 @@ const DEPT_LINKS = [
 const MORE_LINKS = [
   { label:"Notice", href:"notices.html#notices" },
   { label:"Tender", href:"notices.html#tenders" },
+  { label:"Research News", href:"research.html" },
   { label:"Grievance Redressal", href:"https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform", ext:true },
   { label:"E-magazine", href:"https://www.gcetts.ac.in/e-magazine", ext:true },
   { label:"AICTE EOA Reports", href:"https://drive.google.com/drive/folders/1fwgXa0EDTmuvWOG9Cj9W_0rtc5ZknU6D?usp=sharing", ext:true },
@@ -391,9 +392,9 @@ function Header(){
             <Dropdown label="Departments" items={DEPT_LINKS}/>
             <a href="faculty.html">Faculty</a>
             <a href="gallery.html" className="active">Gallery</a>
-            <a href="https://www.gcetts.ac.in/research-news" target="_blank" rel="noopener">Research</a>
+            <a href="research.html">Research</a>
             <Dropdown label="More" items={MORE_LINKS}/>
-            <a href="index.html#contact">Contact</a>
+            <a href="contact.html">Contact</a>
           </div>
           <a className="nav-cta" href="index.html#departments">Explore Programmes</a>
           <button className={"burger"+(open?" open":"")} aria-label="Toggle menu" aria-expanded={open} onClick={()=>setOpen(!open)}><span></span><span></span><span></span></button>
@@ -407,10 +408,10 @@ function Header(){
           {acc==='dept' && <li className="sub">{DEPT_LINKS.map(d=><a key={d.label} href={d.href} target={d.ext?"_blank":undefined} rel={d.ext?"noopener":undefined}>{d.label}</a>)}</li>}
           <li><a href="faculty.html">Faculty</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="https://www.gcetts.ac.in/research-news" target="_blank" rel="noopener">Research News</a></li>
+          <li><a href="research.html">Research News</a></li>
           <li><button className="acc-btn" aria-expanded={acc==='more'} onClick={()=>tog('more')}>Notices &amp; More <span>{acc==='more'?'–':'+'}</span></button></li>
           {acc==='more' && <li className="sub">{MORE_LINKS.map(m=><a key={m.label} href={m.href} target="_blank" rel="noopener">{m.label}</a>)}</li>}
-          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
           <li><a className="d-cta" href="index.html#departments">Explore Programmes</a></li>
         </ul>
       </div>
@@ -627,7 +628,7 @@ function App(){
             <a href="index.html#institute">About &amp; History</a>
             <a href="index.html#vision">Vision &amp; Mission</a>
             <a href="gallery.html">Gallery</a>
-            <a href="index.html#contact">Contact</a>
+            <a href="contact.html">Contact</a>
           </div>
           <div className="foot-col"><h4>Resources</h4>
             <a href="notices.html#notices">Notices</a>

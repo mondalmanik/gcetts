@@ -3,18 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Notices &amp; Tenders · GCETTS — Government College of Engineering &amp; Textile Technology, Serampore</title>
-<meta name="description" content="Latest notices, circulars and tender notifications from Government College of Engineering and Textile Technology, Serampore (GCETTS)." />
+<title>Research News · GCETTS — Government College of Engineering &amp; Textile Technology, Serampore</title>
+<meta name="description" content="Research news, thrust areas and newsletters from Government College of Engineering and Textile Technology, Serampore (GCETTS)." />
 
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-<!-- shared loader + data (data file is optional / auto-generated) -->
-<script src="drive-feed.js"></script>
-<script src="notices-data.js"></script>
-<!-- Optional live mode: create drive-config.js defining window.DRIVE_CONFIG = {apiKey, noticesFolder, tendersFolder} -->
-<script src="drive-config.js"></script>
+<!-- Optional override: define window.RESEARCH_DATA = [ {title,year,url,kind}, ... ] -->
+<script src="research-data.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -40,8 +36,6 @@ ul{list-style:none}
 .eyebrow.on-dark{color:var(--gold)}
 .skip{position:absolute;left:-999px;top:0;z-index:200;background:var(--ink);color:#fff;padding:12px 18px;border-radius:0 0 8px 0}
 .skip:focus{left:0}
-
-/* topbar + header (shared) */
 .topbar{background:var(--indigo-950);color:#cfd8ea;font-size:.78rem}
 .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px;min-height:38px;flex-wrap:wrap}
 .topbar .tb-left{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
@@ -66,7 +60,7 @@ ul{list-style:none}
 .nav-dd:hover .nav-dd-btn,.nav-dd:focus-within .nav-dd-btn{background:var(--ecru);color:var(--indigo-800)}
 .nav-dd-btn svg{transition:transform .2s}
 .nav-dd:hover .nav-dd-btn svg,.nav-dd:focus-within .nav-dd-btn svg{transform:rotate(180deg)}
-.nav-dd-menu{position:absolute;top:calc(100% + 8px);left:0;min-width:248px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px;box-shadow:0 18px 44px -16px rgba(20,35,63,.32);opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s;z-index:50}
+.nav-dd-menu{position:absolute;top:calc(100% + 8px);left:0;min-width:260px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px;box-shadow:0 18px 44px -16px rgba(20,35,63,.32);opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s;z-index:50}
 .nav-dd:hover .nav-dd-menu,.nav-dd:focus-within .nav-dd-menu{opacity:1;visibility:visible;transform:none}
 .nav-dd-menu a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font-size:.86rem;font-weight:500;color:var(--ink);white-space:nowrap}
 .nav-dd-menu a:hover{background:var(--ecru);color:var(--indigo-800)}
@@ -85,59 +79,43 @@ ul{list-style:none}
 .drawer .d-cta{margin-top:16px;text-align:center;background:var(--indigo-800);color:#fff;border-radius:999px;border:none}
 .acc-btn{display:flex;width:100%;justify-content:space-between;align-items:center;padding:13px 6px;font-weight:600;background:none;border:none;border-bottom:1px solid var(--line);font-family:inherit;font-size:1rem;color:var(--ink);cursor:pointer}
 .acc-btn span{font-family:'Spline Sans Mono',monospace;color:var(--gold-deep);font-size:1.2rem;width:20px;text-align:center}
-
 /* hero */
-.nhero{position:relative;background:var(--indigo-900);color:#fff;overflow:hidden;padding:54px 0 56px}
-.nhero .weave-bg{position:absolute;inset:0;opacity:.45}
-.nhero .glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(216,163,59,.18),transparent 65%);top:-210px;right:-110px}
-.nhero .wrap{position:relative}
+.rhero{position:relative;background:var(--indigo-900);color:#fff;overflow:hidden;padding:54px 0 56px}
+.rhero .weave-bg{position:absolute;inset:0;opacity:.42}
+.rhero .glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(216,163,59,.18),transparent 65%);top:-210px;right:-110px}
+.rhero .wrap{position:relative}
 .crumb{font-family:'Spline Sans Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#9fb0d0;margin-bottom:14px}
 .crumb a:hover{color:var(--gold)}
-.nhero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.2rem,5.4vw,3.5rem);line-height:1.04;letter-spacing:-.02em}
-.nhero h1 em{font-style:italic;color:var(--gold)}
-.nhero p{color:#c7d2e8;max-width:56ch;margin-top:14px;font-size:1.04rem}
-
-/* tabs + toolbar */
-.toolbar{position:sticky;top:74px;z-index:40;background:rgba(251,249,244,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 0}
-.toolbar .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-.tabs{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px}
-.tab{font-family:inherit;font-weight:700;font-size:.86rem;padding:9px 18px;border-radius:999px;border:none;background:none;color:var(--ink-soft);cursor:pointer;display:inline-flex;gap:8px;align-items:center;transition:.2s}
-.tab.on{background:var(--indigo-800);color:#fff}
-.tab .n{font-family:'Spline Sans Mono',monospace;font-size:.66rem;background:rgba(216,163,59,.2);color:var(--gold-deep);padding:2px 7px;border-radius:999px}
-.tab.on .n{background:rgba(255,255,255,.16);color:#fff}
-.search{position:relative;flex:1;min-width:200px;max-width:360px}
-.search input{width:100%;padding:11px 14px 11px 40px;border:1px solid var(--line);border-radius:999px;background:#fff;font-family:inherit;font-size:.92rem;color:var(--ink)}
-.search input:focus{outline:none;border-color:var(--gold)}
-.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink-soft)}
-
-/* feed */
-.feed{padding:34px 0 70px}
+.rhero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.2rem,5.4vw,3.5rem);line-height:1.04;letter-spacing:-.02em}
+.rhero h1 em{font-style:italic;color:var(--gold)}
+.rhero p{color:#c7d2e8;max-width:60ch;margin-top:14px;font-size:1.04rem}
+/* sections */
+section{padding:56px 0}
+.sec-head{max-width:62ch;margin-bottom:34px}
+.sec-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.7rem,3.6vw,2.3rem);line-height:1.08;color:var(--indigo-900);margin-top:12px;letter-spacing:-.01em}
+.sec-head p{color:var(--ink-soft);margin-top:14px;font-size:1.04rem}
+/* thrust cards */
+.tcards{display:grid;gap:18px}
+@media(min-width:720px){.tcards{grid-template-columns:1fr 1fr}}
+.tcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;transition:transform .25s,border-color .25s}
+.tcard:hover{transform:translateY(-4px);border-color:var(--gold)}
+.tcard .code{font-family:'Spline Sans Mono',monospace;font-size:.7rem;letter-spacing:.14em;color:var(--gold-deep);font-weight:600}
+.tcard h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.25rem;color:var(--indigo-900);margin:8px 0 14px}
+.taglist{display:flex;flex-wrap:wrap;gap:8px}
+.tag{background:var(--ecru);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:.82rem;font-weight:600;color:var(--indigo-800)}
+/* issues (newsletter) */
+.issues{background:var(--ecru);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .feed-list{display:flex;flex-direction:column;gap:10px}
-.frow{display:flex;gap:15px;align-items:center;padding:15px 18px;border:1px solid var(--line);border-radius:14px;background:#fff;transition:transform .2s,border-color .2s,box-shadow .2s}
+.frow{display:flex;gap:15px;align-items:center;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:#fff;transition:transform .2s,border-color .2s,box-shadow .2s}
 .frow:hover{transform:translateX(3px);border-color:var(--gold);box-shadow:0 14px 30px -20px rgba(20,35,63,.4)}
-.ficon{width:46px;height:46px;border-radius:11px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Spline Sans Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.04em}
-.k-pdf{background:linear-gradient(145deg,#B23A2E,#8E2A20)}
-.k-doc{background:linear-gradient(145deg,#2C4878,#1B2E50)}
-.k-sheet{background:linear-gradient(145deg,#1E7A53,#13573A)}
-.k-slide{background:linear-gradient(145deg,#C97A1E,#9C5C12)}
-.k-image{background:linear-gradient(145deg,#6E5AA8,#4E3F7F)}
-.k-file{background:linear-gradient(145deg,#5A574E,#3C3A34)}
+.ficon{width:46px;height:46px;border-radius:11px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Spline Sans Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.04em;background:linear-gradient(145deg,#B23A2E,#8E2A20)}
 .fmeta{flex:1;min-width:0}
-.fmeta .t{font-weight:600;color:var(--indigo-900);font-size:1rem;line-height:1.25;display:block;overflow-wrap:anywhere}
-.fmeta .d{font-family:'Spline Sans Mono',monospace;font-size:.7rem;color:var(--ink-soft);margin-top:4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.newbadge{font-family:'Spline Sans Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--gold-deep);background:rgba(216,163,59,.16);padding:2px 7px;border-radius:999px}
-.fopen{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;background:var(--ecru);border:1px solid var(--line);color:var(--indigo-800);font-weight:700;font-size:.82rem;padding:9px 15px;border-radius:999px;transition:.2s}
+.fmeta .t{font-weight:600;color:var(--indigo-900);font-size:1rem;line-height:1.25;display:block}
+.fmeta .d{font-family:'Spline Sans Mono',monospace;font-size:.7rem;color:var(--ink-soft);margin-top:4px}
+.fopen{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;background:var(--paper);border:1px solid var(--line);color:var(--indigo-800);font-weight:700;font-size:.82rem;padding:9px 15px;border-radius:999px;transition:.2s}
 .fopen:hover{background:var(--gold);border-color:var(--gold);color:var(--indigo-950)}
-@media(max-width:560px){.fopen span{display:none}.fopen{padding:10px}}
-
-/* states */
-.state{text-align:center;padding:60px 20px;color:var(--ink-soft)}
-.state .ic{width:64px;height:64px;border-radius:18px;background:var(--ecru);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
-.state b{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--indigo-900);display:block;margin-bottom:6px}
-.skel{height:76px;border-radius:14px;background:linear-gradient(90deg,#efeadd 25%,#f6f2e8 37%,#efeadd 63%);background-size:400% 100%;animation:sh 1.3s ease infinite}
-@keyframes sh{0%{background-position:100% 0}100%{background-position:-100% 0}}
-@media (prefers-reduced-motion:reduce){.skel{animation:none}}
-
+.state{text-align:center;padding:50px 20px;color:var(--ink-soft)}
+.state b{font-family:'Fraunces',serif;font-size:1.25rem;color:var(--indigo-900);display:block;margin-bottom:6px}
 /* footer */
 .footer{background:var(--indigo-950);color:#aebbd6;padding:60px 0 0}
 .foot-top{display:grid;gap:34px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1)}
@@ -148,7 +126,7 @@ ul{list-style:none}
 .foot-col a:hover{color:#fff}
 .foot-bottom{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:24px 0;font-size:.8rem;color:#7e8db0}
 @media(min-width:760px){.foot-top{grid-template-columns:1.6fr 1fr 1fr 1fr}}
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 </style>
@@ -156,7 +134,26 @@ ul{list-style:none}
 <body>
 <div id="root"></div>
 <script type="text/babel" data-presets="react">
-const { useState, useEffect, useMemo } = React;
+const { useState, useEffect } = React;
+
+/* Research newsletters / issues. Add new ones at the top (newest first).
+   Each: { title, year, url, kind:"pdf"|"doc"|... }.
+   You may also override from research-data.js via window.RESEARCH_DATA. */
+const DEFAULT_ISSUES = [
+  { title:"Research News — Issue 2025", year:"2025", url:"https://drive.google.com/file/d/1lS_7osmgw6yn3488IINrEoY9kAzf-s-e/view?usp=sharing", kind:"pdf" },
+];
+const ISSUES = (typeof window!=="undefined" && window.RESEARCH_DATA && window.RESEARCH_DATA.length) ? window.RESEARCH_DATA : DEFAULT_ISSUES;
+
+const THRUST = [
+  { code:"CSE", name:"Computer Science & Engineering",
+    areas:["Computational Intelligence & Information Systems","Artificial Intelligence","Data Science","Networks & Internet of Things (IoT)"] },
+  { code:"TT", name:"Textile Technology",
+    areas:["Mechanical Processing of Textiles","Chemical Processing of Textiles","Fundamental & Applied Textile Research","Industry–Institute Collaboration"] },
+  { code:"IT", name:"Information Technology",
+    areas:["Networking & Communication","Software Systems","Multimedia & Graphics","Data & Databases"] },
+  { code:"APM", name:"Apparel Production Management",
+    areas:["Apparel Manufacturing Technology","Quality Management","Merchandising & Work Study","IT & Artificial Intelligence"] },
+];
 
 const DEPT_LINKS = [
   { label:"Computer Science & Engg. (CSE)", href:"departments.html?d=cse" },
@@ -174,32 +171,11 @@ const MORE_LINKS = [
   { label:"Anti Ragging", href:"https://drive.google.com/file/d/1KWXbm0YFWtOaYugpUSLzTMPNDcxwK43V/view?usp=sharing", ext:true },
   { label:"NIRF", href:"https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing", ext:true },
 ];
-
-function fmtDate(iso){
-  if(!iso) return "";
-  const d=new Date(iso); if(isNaN(d)) return "";
-  return d.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"});
-}
-function timeAgo(iso){
-  if(!iso) return "";
-  const d=new Date(iso); if(isNaN(d)) return "";
-  const days=Math.floor((Date.now()-d.getTime())/86400000);
-  if(days<=0) return "today";
-  if(days===1) return "yesterday";
-  if(days<30) return days+" days ago";
-  if(days<60) return "1 month ago";
-  if(days<365) return Math.floor(days/30)+" months ago";
-  return Math.floor(days/365)+" yr ago";
-}
-const isNew=(iso)=>{ const d=new Date(iso); return !isNaN(d) && (Date.now()-d.getTime())<14*86400000; };
-const KIND_LABEL={pdf:"PDF",doc:"DOC",sheet:"XLS",slide:"PPT",image:"IMG",folder:"DIR",file:"FILE"};
-
 const Ico={
   mail:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" strokeWidth="2"/></svg>,
   phone:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-3 2a12 12 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg>,
-  search:()=><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>,
   open:()=><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  bell:()=><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 1112 0c0 5 2 6 2 6H4s2-1 2-6z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/><path d="M10 20a2 2 0 004 0" stroke="currentColor" strokeWidth="1.8"/></svg>,
+  flask:()=><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 3h6M10 3v6l-5 8a2 2 0 002 3h10a2 2 0 002-3l-5-8V3" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/></svg>,
 };
 function Crest(){return(
   <svg className="crest" viewBox="0 0 64 64" aria-hidden="true">
@@ -210,11 +186,17 @@ function Crest(){return(
   </svg>);}
 function Weave({opacity}){return(
   <svg className="weave-bg" preserveAspectRatio="none" viewBox="0 0 800 600" aria-hidden="true" style={{opacity}}>
-    <defs><pattern id="nw" width="40" height="40" patternUnits="userSpaceOnUse">
+    <defs><pattern id="rw" width="40" height="40" patternUnits="userSpaceOnUse">
       <path d="M0 0 H40 M0 13 H40 M0 26 H40" stroke="rgba(110,139,190,.5)" strokeWidth="1"/>
       <path d="M0 0 V40 M13 0 V40 M26 0 V40" stroke="rgba(216,163,59,.28)" strokeWidth="1"/>
-    </pattern></defs><rect width="800" height="600" fill="url(#nw)"/>
+    </pattern></defs><rect width="800" height="600" fill="url(#rw)"/>
   </svg>);}
+function BrandLogos(){return(
+  <a className="brand" href="index.html" aria-label="GCETTS home">
+    <img className="brand-logo" src="logo-left.png" alt="" onError={e=>{e.currentTarget.style.display='none';}} />
+    <span className="brand-txt"><b>GCETTS</b><span>Serampore · Est. 1908</span></span>
+    <img className="brand-logo" src="logo-right.png" alt="" onError={e=>{e.currentTarget.style.display='none';}} />
+  </a>);}
 function Dropdown({label, items}){return(
   <div className="nav-dd">
     <button className="nav-dd-btn" aria-haspopup="true">{label}
@@ -240,18 +222,18 @@ function Header(){
       </div></div>
       <header className="header"><div className="wrap">
         <nav className="nav" aria-label="Primary">
-          <a className="brand" href="index.html" aria-label="GCETTS home"><img className="brand-logo" src="logo-left.png" alt="" onError={e=>{e.currentTarget.style.display='none';}} /><span className="brand-txt"><b>GCETTS</b><span>Serampore · Est. 1908</span></span><img className="brand-logo" src="logo-right.png" alt="" onError={e=>{e.currentTarget.style.display='none';}} /></a>
+          <BrandLogos/>
           <div className="navlinks">
             <a href="index.html#home">Home</a>
             <a href="index.html#institute">Institute</a>
             <Dropdown label="Departments" items={DEPT_LINKS}/>
             <a href="faculty.html">Faculty</a>
             <a href="gallery.html">Gallery</a>
-            <a href="notices.html" className="active">Notices</a>
+            <a href="research.html" className="active">Research</a>
             <Dropdown label="More" items={MORE_LINKS}/>
             <a href="contact.html">Contact</a>
           </div>
-          <a className="nav-cta" href="index.html#departments">Explore Programmes</a>
+          <a className="nav-cta" href="#issues">Latest issue</a>
           <button className={"burger"+(open?" open":"")} aria-label="Toggle menu" aria-expanded={open} onClick={()=>setOpen(!open)}><span></span><span></span><span></span></button>
         </nav>
       </div>
@@ -260,142 +242,118 @@ function Header(){
           <li><a href="index.html#home">Home</a></li>
           <li><a href="index.html#institute">Institute</a></li>
           <li><button className="acc-btn" aria-expanded={acc==='dept'} onClick={()=>tog('dept')}>Departments <span>{acc==='dept'?'–':'+'}</span></button></li>
-          {acc==='dept' && <li className="sub">{DEPT_LINKS.map(d=><a key={d.label} href={d.href} target={d.ext?"_blank":undefined} rel={d.ext?"noopener":undefined}>{d.label}</a>)}</li>}
+          {acc==='dept' && <li className="sub">{DEPT_LINKS.map(d=><a key={d.label} href={d.href}>{d.label}</a>)}</li>}
           <li><a href="faculty.html">Faculty</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="notices.html">Notices &amp; Tenders</a></li>
+          <li><a href="research.html">Research News</a></li>
           <li><button className="acc-btn" aria-expanded={acc==='more'} onClick={()=>tog('more')}>More <span>{acc==='more'?'–':'+'}</span></button></li>
           {acc==='more' && <li className="sub">{MORE_LINKS.map(m=><a key={m.label} href={m.href} target={m.ext?"_blank":undefined} rel={m.ext?"noopener":undefined}>{m.label}</a>)}</li>}
           <li><a href="contact.html">Contact</a></li>
-          <li><a className="d-cta" href="index.html#departments">Explore Programmes</a></li>
         </ul>
       </div>
       </header>
     </React.Fragment>
   );
 }
-
-function Row({it}){
-  return (
-    <a className="frow reveal" href={it.url} target="_blank" rel="noopener">
-      <span className={"ficon k-"+(it.kind||"file")}>{KIND_LABEL[it.kind]||"FILE"}</span>
-      <span className="fmeta">
-        <span className="t">{it.name}</span>
-        <span className="d">
-          {it.date && <span>{fmtDate(it.date)}</span>}
-          {it.date && <span>· {timeAgo(it.date)}</span>}
-          {isNew(it.date) && <span className="newbadge">New</span>}
-        </span>
-      </span>
-      <span className="fopen">{Ico.open()}<span>Open</span></span>
-    </a>
-  );
-}
+function Footer(){return(
+  <footer className="footer"><div className="wrap">
+    <div className="foot-top">
+      <div className="foot-brand">
+        <div className="brand"><Crest/><span className="brand-txt"><b style={{color:"#fff"}}>GCETTS</b><span>Serampore · Est. 1908</span></span></div>
+        <p>Government College of Engineering &amp; Textile Technology, Serampore. Affiliated to MAKAUT, approved by AICTE.</p>
+      </div>
+      <div className="foot-col"><h4>Departments</h4>
+        <a href="departments.html?d=cse">Computer Science &amp; Engg.</a>
+        <a href="departments.html?d=it">Information Technology</a>
+        <a href="departments.html?d=tt">Textile Technology</a>
+        <a href="departments.html?d=apm">Apparel Production Mgmt.</a>
+      </div>
+      <div className="foot-col"><h4>Institute</h4>
+        <a href="index.html#institute">About &amp; History</a>
+        <a href="faculty.html">Faculty</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="research.html">Research News</a>
+      </div>
+      <div className="foot-col"><h4>Resources</h4>
+        <a href="notices.html">Notices &amp; Tenders</a>
+        <a href="https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing" target="_blank" rel="noopener">NIRF</a>
+        <a href="https://www.gcetts.ac.in/e-magazine" target="_blank" rel="noopener">E-magazine</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div className="foot-bottom">
+      <span>© {new Date().getFullYear()} Government College of Engineering and Textile Technology, Serampore. All rights reserved.</span>
+      <span className="mono">Serampore · Hooghly · West Bengal</span>
+    </div>
+  </div></footer>);}
 
 function App(){
-  const initial = (typeof location!=="undefined" && location.hash.replace("#","")==="tenders") ? "tenders" : "notices";
-  const [tab,setTab]=useState(initial);
-  const [q,setQ]=useState("");
-  const [data,setData]=useState(null);   // {notices, tenders, source} | null=loading
-  const [err,setErr]=useState(false);
-
-  useEffect(()=>{
-    let on=true;
-    const p = (window.DriveFeed ? window.DriveFeed.load() : Promise.resolve({notices:[],tenders:[],source:"none"}));
-    p.then(d=>{ if(on) setData(d); }).catch(()=>{ if(on){ setErr(true); setData({notices:[],tenders:[],source:"none"}); }});
-    return ()=>{on=false;};
-  },[]);
-
-  const list = useMemo(()=>{
-    if(!data) return [];
-    const base = tab==="tenders" ? data.tenders : data.notices;
-    const term=q.trim().toLowerCase();
-    return term ? base.filter(x=>(x.name||"").toLowerCase().includes(term)) : base;
-  },[data,tab,q]);
-
   useEffect(()=>{
     const els=document.querySelectorAll('.reveal');
     if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){els.forEach(e=>e.classList.add('in'));return;}
-    const io=new IntersectionObserver(en=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.05});
+    const io=new IntersectionObserver(en=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.06});
     els.forEach(e=>io.observe(e));return ()=>io.disconnect();
-  },[list]);
-
-  const nC = data? data.notices.length : 0;
-  const tC = data? data.tenders.length : 0;
-  const label = tab==="tenders" ? "tenders" : "notices";
-
+  },[]);
   return (
     <React.Fragment>
-      <a className="skip" href="#feed">Skip to list</a>
+      <a className="skip" href="#main">Skip to content</a>
       <Header/>
-      <section className="nhero">
+      <section className="rhero" style={{padding:0}}>
+        <div style={{padding:"54px 0 56px",position:"relative"}}>
         <Weave opacity={.4}/><div className="glow"></div>
         <div className="wrap">
-          <div className="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Notices &amp; Tenders</div>
-          <h1>Notices &amp; <em>tenders</em>.</h1>
-          <p>The latest circulars, notifications and tender documents — newest first. Click any item to open the original file.</p>
+          <div className="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Research News</div>
+          <span className="eyebrow on-dark">Research &amp; Innovation</span>
+          <h1>Research <em>news</em>.</h1>
+          <p>Across textiles, computing and apparel, GCETTS departments pursue fundamental and applied research — supported by qualified faculty, industry–institute collaboration and a strong alumni network.</p>
+        </div>
         </div>
       </section>
 
-      <div className="toolbar">
-        <div className="wrap">
-          <div className="tabs" role="tablist">
-            <button className={"tab"+(tab==="notices"?" on":"")} role="tab" aria-selected={tab==="notices"} onClick={()=>{setTab("notices");setQ("");}}>Notices <span className="n">{nC}</span></button>
-            <button className={"tab"+(tab==="tenders"?" on":"")} role="tab" aria-selected={tab==="tenders"} onClick={()=>{setTab("tenders");setQ("");}}>Tenders <span className="n">{tC}</span></button>
-          </div>
-          <div className="search">
-            {Ico.search()}
-            <input type="search" placeholder={"Search "+label+"…"} value={q} onChange={e=>setQ(e.target.value)} aria-label={"Search "+label}/>
-          </div>
-        </div>
-      </div>
-
-      <main className="feed" id="feed">
-        <div className="wrap">
-          {!data ? (
-            <div className="feed-list">{[0,1,2,3,4].map(i=><div className="skel" key={i}></div>)}</div>
-          ) : list.length>0 ? (
-            <div className="feed-list">{list.map((it,i)=><Row key={i} it={it}/>)}</div>
-          ) : (
-            <div className="state">
-              <div className="ic">{Ico.bell()}</div>
-              <b>{q ? "No matches found" : ("No "+label+" published yet")}</b>
-              {q ? "Try a different search term." : "Please check back later — new "+label+" appear here automatically."}
+      <main id="main">
+        <section>
+          <div className="wrap">
+            <div className="sec-head reveal">
+              <span className="eyebrow">By department</span>
+              <h2>Research &amp; thrust areas</h2>
+              <p>Each department brings its own focus — from artificial intelligence and data science to the mechanical and chemical processing of textiles.</p>
             </div>
-          )}
-        </div>
-      </main>
+            <div className="tcards">
+              {THRUST.map(t=>(
+                <div className="tcard reveal" key={t.code}>
+                  <span className="code">DEPT · {t.code}</span>
+                  <h3>{t.name}</h3>
+                  <div className="taglist">{t.areas.map((a,i)=><span className="tag" key={i}>{a}</span>)}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-      <footer className="footer"><div className="wrap">
-        <div className="foot-top">
-          <div className="foot-brand">
-            <div className="brand"><Crest/><span className="brand-txt"><b style={{color:"#fff"}}>GCETTS</b><span>Serampore · Est. 1908</span></span></div>
-            <p>Government College of Engineering &amp; Textile Technology, Serampore. Affiliated to MAKAUT, approved by AICTE.</p>
+        <section className="issues" id="issues">
+          <div className="wrap">
+            <div className="sec-head reveal">
+              <span className="eyebrow">Newsletter</span>
+              <h2>Research News issues</h2>
+              <p>The institute's research newsletter — open the latest issue below.</p>
+            </div>
+            {ISSUES.length>0 ? (
+              <div className="feed-list">
+                {ISSUES.map((it,i)=>(
+                  <a className="frow reveal" key={i} href={it.url} target="_blank" rel="noopener">
+                    <span className="ficon">{(it.kind||"PDF").toUpperCase().slice(0,3)}</span>
+                    <span className="fmeta"><span className="t">{it.title}</span><span className="d">{it.year}</span></span>
+                    <span className="fopen">{Ico.open()} Open</span>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="state"><b>No issues published yet</b>New research newsletters will appear here.</div>
+            )}
           </div>
-          <div className="foot-col"><h4>Academics</h4>
-            <a href="departments.html?d=cse">Computer Science &amp; Engg.</a>
-            <a href="departments.html?d=it">Information Technology</a>
-            <a href="departments.html?d=tt">Textile Technology</a>
-            <a href="faculty.html">Faculty</a>
-          </div>
-          <div className="foot-col"><h4>Institute</h4>
-            <a href="index.html#institute">About &amp; History</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="notices.html">Notices &amp; Tenders</a>
-            <a href="contact.html">Contact</a>
-          </div>
-          <div className="foot-col"><h4>Resources</h4>
-            <a href="notices.html#notices">Notices</a>
-            <a href="notices.html#tenders">Tenders</a>
-            <a href="https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing" target="_blank" rel="noopener">NIRF</a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform" target="_blank" rel="noopener">Grievance Redressal</a>
-          </div>
-        </div>
-        <div className="foot-bottom">
-          <span>© {new Date().getFullYear()} Government College of Engineering and Textile Technology, Serampore. All rights reserved.</span>
-          <span className="mono">Serampore · Hooghly · West Bengal</span>
-        </div>
-      </div></footer>
+        </section>
+      </main>
+      <Footer/>
     </React.Fragment>
   );
 }

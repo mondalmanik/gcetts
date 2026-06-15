@@ -286,6 +286,7 @@ const DEPT_LINKS = [
 ];
 const MORE_LINKS = [
   { label:"Notices & Tenders", href:"notices.html" },
+  { label:"Research News", href:"research.html" },
   { label:"Grievance Redressal", href:"https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform", ext:true },
   { label:"E-magazine", href:"https://www.gcetts.ac.in/e-magazine", ext:true },
   { label:"AICTE EOA Reports", href:"https://drive.google.com/drive/folders/1fwgXa0EDTmuvWOG9Cj9W_0rtc5ZknU6D?usp=sharing", ext:true },
@@ -353,7 +354,7 @@ function Header(){
             <a href="gallery.html">Gallery</a>
             <a href="notices.html">Notices</a>
             <Dropdown label="More" items={MORE_LINKS}/>
-            <a href="index.html#contact">Contact</a>
+            <a href="contact.html">Contact</a>
           </div>
           <a className="nav-cta" href="departments.html">All Departments</a>
           <button className={"burger"+(open?" open":"")} aria-label="Toggle menu" aria-expanded={open} onClick={()=>setOpen(!open)}><span></span><span></span><span></span></button>
@@ -370,7 +371,7 @@ function Header(){
           <li><a href="notices.html">Notices &amp; Tenders</a></li>
           <li><button className="acc-btn" aria-expanded={acc==='more'} onClick={()=>tog('more')}>More <span>{acc==='more'?'–':'+'}</span></button></li>
           {acc==='more' && <li className="sub">{MORE_LINKS.map(m=><a key={m.label} href={m.href} target={m.ext?"_blank":undefined} rel={m.ext?"noopener":undefined}>{m.label}</a>)}</li>}
-          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
           <li><a className="d-cta" href="departments.html">All Departments</a></li>
         </ul>
       </div>
@@ -401,7 +402,7 @@ function Footer(){return(
         <a href="https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing" target="_blank" rel="noopener">NIRF</a>
         <a href="https://drive.google.com/file/d/15FVdwql1a778Q3-t9AP7jdPg_qErUB2a/view?usp=sharing" target="_blank" rel="noopener">Mandatory Disclosure</a>
         <a href="https://drive.google.com/file/d/1KWXbm0YFWtOaYugpUSLzTMPNDcxwK43V/view?usp=sharing" target="_blank" rel="noopener">Anti-Ragging</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
     <div className="foot-bottom">

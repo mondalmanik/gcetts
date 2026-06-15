@@ -265,14 +265,17 @@ section{padding:74px 0}
 
 /* ============ LINKS GRID ============ */
 .links{background:var(--paper)}
-.links-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.link-tile{border:1px solid var(--line);border-radius:12px;padding:20px;background:#fff;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s}
-.link-tile:hover{border-color:var(--gold);transform:translateY(-3px)}
-.link-tile .lt-ico{color:var(--gold-deep)}
-.link-tile b{font-size:.95rem;color:var(--indigo-900);font-weight:700}
-.link-tile span{font-size:.78rem;color:var(--ink-soft)}
-@media(min-width:680px){.links-grid{grid-template-columns:repeat(3,1fr)}}
-@media(min-width:1000px){.links-grid{grid-template-columns:repeat(4,1fr)}}
+.links-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.link-tile{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;transition:border-color .2s,background .2s,transform .2s}
+.link-tile:hover{border-color:var(--gold);background:var(--ecru);transform:translateY(-2px)}
+.link-tile .lt-ico{width:34px;height:34px;border-radius:8px;background:rgba(216,163,59,.14);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.link-tile .lt-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.link-tile b{font-size:.86rem;color:var(--indigo-900);font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.link-tile .lt-tx span{font-size:.7rem;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.link-tile .lt-ar{color:var(--gold-deep);flex:0 0 auto;opacity:0;transform:translateX(-3px);transition:opacity .2s,transform .2s}
+.link-tile:hover .lt-ar{opacity:1;transform:none}
+@media(min-width:560px){.links-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:920px){.links-grid{grid-template-columns:1fr 1fr 1fr}}
 
 /* ============ CONTACT ============ */
 .contact{background:var(--ecru)}
@@ -374,7 +377,7 @@ const LINKS = [
   { b:"Grievance Redressal", s:"Raise a concern", href:"https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform" },
   { b:"Gallery", s:"Campus moments", href:"gallery.html" },
   { b:"E-Magazine", s:"Student publication", href:"https://www.gcetts.ac.in/e-magazine" },
-  { b:"Research News", s:"Faculty & scholar work", href:"https://www.gcetts.ac.in/research-news" },
+  { b:"Research News", s:"Faculty & scholar work", href:"research.html" },
   { b:"NIRF", s:"Ranking disclosure", href:"https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing" },
   { b:"Anti-Ragging", s:"Committee & policy", href:"https://drive.google.com/file/d/1KWXbm0YFWtOaYugpUSLzTMPNDcxwK43V/view?usp=sharing" },
   { b:"Mandatory Disclosure", s:"AICTE compliance", href:"https://drive.google.com/file/d/15FVdwql1a778Q3-t9AP7jdPg_qErUB2a/view?usp=sharing" },
@@ -511,9 +514,9 @@ function Header(){
               <Dropdown label="Departments" items={DEPT_LINKS} />
               <a href="faculty.html">Faculty</a>
               <a href="gallery.html">Gallery</a>
-              <a href="https://www.gcetts.ac.in/research-news" target="_blank" rel="noopener">Research</a>
+              <a href="research.html">Research</a>
               <Dropdown label="More" items={MORE_LINKS} />
-              <a href="index.html#contact">Contact</a>
+              <a href="contact.html">Contact</a>
             </div>
             <a className="nav-cta" href="index.html#departments">Explore Programmes</a>
             <button className={"burger"+(open?" open":"")} aria-label="Toggle menu" aria-expanded={open} onClick={()=>setOpen(!open)}>
@@ -535,7 +538,7 @@ function Header(){
             )}
             <li><a href="faculty.html" onClick={()=>setOpen(false)}>Faculty</a></li>
             <li><a href="gallery.html" onClick={()=>setOpen(false)}>Gallery</a></li>
-            <li><a href="https://www.gcetts.ac.in/research-news" target="_blank" rel="noopener" onClick={()=>setOpen(false)}>Research News</a></li>
+            <li><a href="research.html" onClick={()=>setOpen(false)}>Research News</a></li>
             <li><button className="acc-btn" aria-expanded={acc==='more'} onClick={()=>tog('more')}>Notices &amp; More <span>{acc==='more'?'–':'+'}</span></button></li>
             {acc==='more' && (
               <li className="sub">
@@ -544,7 +547,7 @@ function Header(){
                 ))}
               </li>
             )}
-            <li><a href="index.html#contact" onClick={()=>setOpen(false)}>Contact</a></li>
+            <li><a href="contact.html" onClick={()=>setOpen(false)}>Contact</a></li>
             <li><a className="d-cta" href="index.html#departments" onClick={()=>setOpen(false)}>Explore Programmes</a></li>
           </ul>
         </div>
@@ -830,13 +833,16 @@ function Resources(){
           <p>Official notices, statutory disclosures and student resources — all in one place.</p>
         </div>
         <div className="links-grid">
-          {LINKS.map(l=>(
-            <a className="link-tile reveal" key={l.b} href={l.href} target="_blank" rel="noopener">
-              <span className="lt-ico">{I.doc()}</span>
-              <b>{l.b}</b>
-              <span>{l.s}</span>
-            </a>
-          ))}
+          {LINKS.map(l=>{
+            const ext=/^https?:/.test(l.href);
+            return (
+              <a className="link-tile reveal" key={l.b} href={l.href} target={ext?"_blank":undefined} rel={ext?"noopener":undefined}>
+                <span className="lt-ico">{I.doc()}</span>
+                <span className="lt-tx"><b>{l.b}</b><span>{l.s}</span></span>
+                <span className="lt-ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
