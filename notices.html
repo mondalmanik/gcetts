@@ -159,11 +159,11 @@ ul{list-style:none}
 const { useState, useEffect, useMemo } = React;
 
 const DEPT_LINKS = [
-  { label:"Computer Science & Engg. (CSE)", href:"https://www.gcetts.ac.in/departments/cse", ext:true },
-  { label:"Information Technology (IT)", href:"https://www.gcetts.ac.in/departments/it", ext:true },
-  { label:"Textile Technology (TT)", href:"https://www.gcetts.ac.in/departments/tt", ext:true },
-  { label:"Apparel Production Mgmt. (APM)", href:"https://www.gcetts.ac.in/departments/apm", ext:true },
-  { label:"All Departments", href:"index.html#departments" },
+  { label:"Computer Science & Engg. (CSE)", href:"departments.html?d=cse" },
+  { label:"Information Technology (IT)", href:"departments.html?d=it" },
+  { label:"Textile Technology (TT)", href:"departments.html?d=tt" },
+  { label:"Apparel Production Mgmt. (APM)", href:"departments.html?d=apm" },
+  { label:"All Departments", href:"departments.html" },
 ];
 const MORE_LINKS = [
   { label:"Notices & Tenders", href:"notices.html" },
@@ -372,9 +372,9 @@ function App(){
             <p>Government College of Engineering &amp; Textile Technology, Serampore. Affiliated to MAKAUT, approved by AICTE.</p>
           </div>
           <div className="foot-col"><h4>Academics</h4>
-            <a href="https://www.gcetts.ac.in/departments/cse" target="_blank" rel="noopener">Computer Science &amp; Engg.</a>
-            <a href="https://www.gcetts.ac.in/departments/it" target="_blank" rel="noopener">Information Technology</a>
-            <a href="https://www.gcetts.ac.in/departments/tt" target="_blank" rel="noopener">Textile Technology</a>
+            <a href="departments.html?d=cse">Computer Science &amp; Engg.</a>
+            <a href="departments.html?d=it">Information Technology</a>
+            <a href="departments.html?d=tt">Textile Technology</a>
             <a href="faculty.html">Faculty</a>
           </div>
           <div className="foot-col"><h4>Institute</h4>

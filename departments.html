@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Departments · GCETTS — Government College of Engineering &amp; Textile Technology, Serampore</title>
+<meta name="description" content="Departments at GCETTS, Serampore — Computer Science & Engineering, Information Technology, Textile Technology and Apparel Production Management. B.Tech & M.Tech programmes approved by AICTE, affiliated to MAKAUT." />
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --indigo-950:#0E1B33;--indigo-900:#14233F;--indigo-800:#1B2E50;--indigo-700:#243B65;--indigo-600:#2C4878;
+  --thread:#6E8BBE;--ecru:#F4EFE4;--paper:#FBF9F4;--paper-dim:#F1ECE0;--gold:#D8A33B;--gold-deep:#B9842A;
+  --ink:#1A1A17;--ink-soft:#56524A;--line:#E2DBCC;--max:1200px;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-family:'Hanken Grotesk',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+.mono{font-family:'Spline Sans Mono',monospace}
+.eyebrow{font-family:'Spline Sans Mono',monospace;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);font-weight:500;display:inline-flex;align-items:center;gap:.6em}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--gold)}
+.eyebrow.on-dark{color:var(--gold)}
+.skip{position:absolute;left:-999px;top:0;z-index:200;background:var(--ink);color:#fff;padding:12px 18px;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+
+/* topbar + header (shared) */
+.topbar{background:var(--indigo-950);color:#cfd8ea;font-size:.78rem}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px;min-height:38px;flex-wrap:wrap}
+.topbar .tb-left{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.topbar a{display:inline-flex;gap:6px;align-items:center;opacity:.85;transition:opacity .2s}
+.topbar a:hover{opacity:1;color:var(--gold)}
+.topbar .pill{background:var(--gold);color:var(--indigo-950);padding:3px 11px;border-radius:999px;font-weight:700;font-family:'Spline Sans Mono',monospace;letter-spacing:.04em}
+.header{position:sticky;top:0;z-index:120;background:rgba(251,249,244,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:74px}
+.brand{display:flex;align-items:center;gap:13px}
+.crest{width:46px;height:46px;flex:0 0 auto}
+.brand-logo{height:42px;width:auto;flex:0 0 auto;object-fit:contain}
+@media(max-width:520px){.brand-logo{height:34px}}
+.brand-txt b{font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;line-height:1.05;letter-spacing:-.01em;display:block;color:var(--indigo-900)}
+.brand-txt span{font-family:'Spline Sans Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.navlinks{display:none;align-items:center;gap:4px}
+.navlinks a{font-size:.86rem;font-weight:600;padding:9px 12px;border-radius:8px;color:var(--ink);transition:background .2s,color .2s}
+.navlinks a:hover,.navlinks a.active{background:var(--ecru);color:var(--indigo-800)}
+.nav-cta{display:none;background:var(--indigo-800);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;font-size:.84rem;transition:background .2s,transform .2s}
+.nav-cta:hover{background:var(--gold);color:var(--indigo-950);transform:translateY(-1px)}
+.nav-dd{position:relative}
+.nav-dd-btn{display:inline-flex;align-items:center;gap:5px;font-family:inherit;font-size:.86rem;font-weight:600;padding:9px 12px;border-radius:8px;background:none;border:none;color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
+.nav-dd:hover .nav-dd-btn,.nav-dd:focus-within .nav-dd-btn{background:var(--ecru);color:var(--indigo-800)}
+.nav-dd-btn svg{transition:transform .2s}
+.nav-dd:hover .nav-dd-btn svg,.nav-dd:focus-within .nav-dd-btn svg{transform:rotate(180deg)}
+.nav-dd-menu{position:absolute;top:calc(100% + 8px);left:0;min-width:260px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px;box-shadow:0 18px 44px -16px rgba(20,35,63,.32);opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s;z-index:50}
+.nav-dd:hover .nav-dd-menu,.nav-dd:focus-within .nav-dd-menu{opacity:1;visibility:visible;transform:none}
+.nav-dd-menu a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font-size:.86rem;font-weight:500;color:var(--ink);white-space:nowrap}
+.nav-dd-menu a:hover{background:var(--ecru);color:var(--indigo-800)}
+.nav-dd-menu .ext{color:var(--gold-deep);font-size:.8rem}
+.burger{display:inline-flex;flex-direction:column;gap:5px;background:none;border:1px solid var(--line);border-radius:10px;padding:11px;cursor:pointer}
+.burger span{width:20px;height:2px;background:var(--indigo-900);border-radius:2px;transition:.25s}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(min-width:1024px){.navlinks{display:flex}.nav-cta{display:inline-block}.burger{display:none}}
+.drawer{overflow:hidden;max-height:0;transition:max-height .35s ease;background:var(--paper);border-bottom:1px solid var(--line)}
+.drawer.open{max-height:640px;overflow-y:auto}
+.drawer ul{padding:8px 20px 22px}
+.drawer a{display:block;padding:13px 6px;font-weight:600;border-bottom:1px solid var(--line);color:var(--ink)}
+.drawer .sub a{padding-left:22px;font-weight:500;color:var(--ink-soft);font-size:.92rem}
+.drawer .d-cta{margin-top:16px;text-align:center;background:var(--indigo-800);color:#fff;border-radius:999px;border:none}
+.acc-btn{display:flex;width:100%;justify-content:space-between;align-items:center;padding:13px 6px;font-weight:600;background:none;border:none;border-bottom:1px solid var(--line);font-family:inherit;font-size:1rem;color:var(--ink);cursor:pointer}
+.acc-btn span{font-family:'Spline Sans Mono',monospace;color:var(--gold-deep);font-size:1.2rem;width:20px;text-align:center}
+
+/* hero */
+.dhero{position:relative;background:var(--indigo-900);color:#fff;overflow:hidden;padding:56px 0 60px}
+.dhero .weave-bg{position:absolute;inset:0;opacity:.42}
+.dhero .glow{position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(216,163,59,.18),transparent 65%);top:-220px;right:-120px}
+.dhero .wrap{position:relative}
+.crumb{font-family:'Spline Sans Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#9fb0d0;margin-bottom:16px}
+.crumb a:hover{color:var(--gold)}
+.dhero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,5.2vw,3.5rem);line-height:1.04;letter-spacing:-.02em;margin-top:4px}
+.dhero h1 em{font-style:italic;color:var(--gold)}
+.dhero .lead{color:#c7d2e8;max-width:60ch;margin-top:16px;font-size:1.06rem}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.dchip{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 14px;font-size:.82rem;color:#dbe4f5}
+.dchip b{color:#fff;font-family:'Spline Sans Mono',monospace;font-size:.74rem;letter-spacing:.04em}
+.dchip .g{color:var(--gold)}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;font-weight:700;font-size:.9rem;transition:transform .2s,background .2s;cursor:pointer;border:none}
+.btn-gold{background:var(--gold);color:var(--indigo-950)}
+.btn-gold:hover{transform:translateY(-2px);background:#e6b34d}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* body layout */
+.dbody{padding:56px 0 70px}
+.dgrid{display:grid;gap:40px}
+@media(min-width:940px){.dgrid{grid-template-columns:1fr 320px;align-items:start}}
+.prose h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.4rem,3vw,1.9rem);color:var(--indigo-900);letter-spacing:-.01em;margin:0 0 14px}
+.prose p{color:var(--ink-soft);margin-bottom:15px;font-size:1.04rem}
+.prose .lead{font-family:'Fraunces',serif;font-size:1.25rem;color:var(--ink);line-height:1.45}
+.block{margin-top:38px}
+.rule{height:1px;background:repeating-linear-gradient(90deg,var(--gold) 0 2px,transparent 2px 9px);opacity:.45;margin:0 0 22px}
+
+/* programme cards */
+.progs{display:grid;gap:12px}
+.prog{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:#fff;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.prog .pt{font-family:'Fraunces',serif;font-weight:600;color:var(--indigo-900);font-size:1.05rem}
+.prog .pl{font-family:'Spline Sans Mono',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+.prog .badge{font-family:'Spline Sans Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep);background:rgba(216,163,59,.16);padding:3px 9px;border-radius:999px;white-space:nowrap}
+
+/* tag chips */
+.taglist{display:flex;flex-wrap:wrap;gap:9px}
+.tag{background:var(--ecru);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:.85rem;font-weight:600;color:var(--indigo-800)}
+
+/* labs / lists */
+.flist{display:grid;gap:10px}
+.flist li{position:relative;padding-left:26px;color:var(--ink-soft)}
+.flist li::before{content:"";position:absolute;left:0;top:9px;width:11px;height:11px;background:var(--gold);border-radius:2px;transform:rotate(45deg)}
+
+/* recruiters */
+.recruiters{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.rec{font-family:'Spline Sans Mono',monospace;font-size:.78rem;font-weight:600;color:var(--indigo-900);background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 16px}
+
+/* sidebar */
+.side{position:sticky;top:96px;display:flex;flex-direction:column;gap:16px}
+.facts{background:var(--indigo-900);color:#fff;border-radius:18px;padding:24px;overflow:hidden;position:relative}
+.facts h3{font-family:'Spline Sans Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.fact{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px dashed rgba(255,255,255,.14);font-size:.9rem}
+.fact:last-child{border-bottom:none}
+.fact span{color:#aebbd6}
+.fact b{font-family:'Fraunces',serif;font-weight:600;text-align:right}
+.reslinks{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+.reslinks h3{font-family:'Spline Sans Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px}
+.reslinks a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:.9rem;font-weight:600;color:var(--indigo-900)}
+.reslinks a:last-child{border-bottom:none}
+.reslinks a:hover{color:var(--gold-deep)}
+.reslinks a .ar{color:var(--gold-deep)}
+
+/* dept switch nav */
+.deptnav{display:flex;justify-content:space-between;gap:12px;margin-top:48px;flex-wrap:wrap}
+.deptnav a{flex:1;min-width:220px;border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:#fff;transition:.2s}
+.deptnav a:hover{border-color:var(--gold);transform:translateY(-3px)}
+.deptnav .lab{font-family:'Spline Sans Mono',monospace;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.deptnav .nm{font-family:'Fraunces',serif;font-weight:600;color:var(--indigo-900);font-size:1.05rem;margin-top:4px}
+.deptnav .next{text-align:right}
+
+/* landing grid */
+.landing{padding:48px 0 70px}
+.dcards{display:grid;gap:18px}
+@media(min-width:640px){.dcards{grid-template-columns:1fr 1fr}}
+.dcard{background:linear-gradient(165deg,#fff,var(--paper-dim));border:1px solid var(--line);border-radius:16px;padding:28px;transition:transform .25s,border-color .25s;display:flex;flex-direction:column;min-height:210px}
+.dcard:hover{transform:translateY(-5px);border-color:var(--gold)}
+.dcard .code{font-family:'Spline Sans Mono',monospace;font-size:.72rem;letter-spacing:.14em;color:var(--gold-deep);font-weight:600}
+.dcard h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.4rem;margin:12px 0 10px;color:var(--indigo-900);line-height:1.12}
+.dcard p{color:var(--ink-soft);font-size:.94rem;flex-grow:1}
+.dcard .foot{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.dcard .lvl{font-family:'Spline Sans Mono',monospace;font-size:.66rem;letter-spacing:.1em;color:var(--ink-soft);text-transform:uppercase}
+.dcard .go{color:var(--gold-deep);font-weight:700;font-size:.84rem;display:inline-flex;gap:6px;align-items:center;transition:gap .2s}
+.dcard:hover .go{gap:11px}
+
+/* footer */
+.footer{background:var(--indigo-950);color:#aebbd6;padding:60px 0 0}
+.foot-top{display:grid;gap:34px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1)}
+.foot-brand .brand-txt b{color:#fff}
+.foot-brand p{margin-top:16px;font-size:.9rem;max-width:34ch}
+.foot-col h4{font-family:'Spline Sans Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.foot-col a{display:block;padding:6px 0;font-size:.9rem;transition:color .2s}
+.foot-col a:hover{color:#fff}
+.foot-bottom{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:24px 0;font-size:.8rem;color:#7e8db0}
+@media(min-width:760px){.foot-top{grid-template-columns:1.6fr 1fr 1fr 1fr}}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { useState, useEffect } = React;
+
+const ORDER = ["cse","it","tt","apm"];
+const DEPTS = {
+  cse: {
+    code:"CSE", name:"Computer Science & Engineering", since:"2001", est:"2001",
+    intake:60, faculty:13,
+    tagline:"Computing, AI and systems — the institute's flagship technology discipline.",
+    intro:[
+      {lead:true, t:"Introduced in 2001, the Department of Computer Science & Engineering offers a B.Tech in Computer Science & Engineering, duly approved by AICTE, Government of India."},
+      {t:"Its curriculum spans the full breadth of computer hardware and software with a strong emphasis on hands-on learning, and is kept up to date with emerging topics so graduates stay abreast of the latest developments in the field."},
+      {t:"Students work on high-end computing facilities, with state-of-the-art machines across laboratories linked by high-speed Ethernet and wireless networks. The department is also active in research, with facilities adequate to support it."},
+      {t:"A large alumni network occupies positions of eminence across the computer industry and continues to support the department's growth."},
+    ],
+    programmes:[{t:"B.Tech in Computer Science & Engineering", l:"Undergraduate · 4 years", b:"AICTE approved"}],
+    focusTitle:"Thrust areas for research & development",
+    focus:["Computational Intelligence & Information Systems","Artificial Intelligence","Data Science","Networks & Internet of Things (IoT)"],
+    labs:["Software laboratories — operating systems, DBMS, media, control & systems simulation","Electronics & microprocessor laboratories","Communication engineering laboratory","Programming laboratories — Java, Web, Artificial Intelligence","High-speed Ethernet & wireless networked workstations"],
+    labsNote:"CSE and IT share laboratory facilities, as the subjects closely overlap.",
+    placement:"The department has produced a large pool of quality engineers who hold positions of eminence across the computer industry, and an active alumni network supports its continued growth.",
+    recruiters:null,
+  },
+  it: {
+    code:"IT", name:"Information Technology", since:"2000", est:"2000",
+    intake:60, faculty:12,
+    tagline:"Where computing meets communications — IT for a connected world.",
+    intro:[
+      {lead:true, t:"An amalgam of computing and telecommunications, Information Technology touches nearly every walk of life — banking, insurance, communications, e-governance, entertainment and multimedia, scientific research and business intelligence among them."},
+      {t:"Established in 2000, the department offers a B.Tech in Information Technology, duly approved by AICTE, Government of India, and has produced IT engineers serving reputed organisations and pursuing higher studies at institutes of excellence."},
+      {t:"Teaching covers the core foundations — operating systems, computer architecture and design, software development, networking, multimedia and graphics, analog and digital communication, and computer communications — backed by well-configured, internet-connected laboratories."},
+      {t:"In-house training, projects and corporate internships give students a comprehensive industry orientation, and graduates leave with the professional leadership qualities to excel across interdisciplinary domains."},
+    ],
+    programmes:[{t:"B.Tech in Information Technology", l:"Undergraduate · 4 years", b:"AICTE approved"}],
+    focusTitle:"Core areas of study",
+    focus:["Operating Systems","Computer Architecture & Design","Software Development","Networking","Multimedia & Graphics","Analog & Digital Communication"],
+    labs:["Operating systems laboratory","Networking laboratory","Data structures & database laboratory","Well-configured, internet-connected desktop laboratories"],
+    labsNote:"IT and CSE share laboratory facilities, as the subjects closely overlap.",
+    placement:"The department maintains a strong placement record — in percentage of registered students placed and in companies recruiting each year — supported by in-house training, projects and corporate internships.",
+    recruiters:["TCS","CTS","IBM","WIPRO"],
+  },
+  tt: {
+    code:"TT", name:"Textile Technology", since:"1908", est:"30 Nov 1908",
+    intake:60, faculty:13,
+    tagline:"The founding department — over a century of textile science since 1908.",
+    intro:[
+      {lead:true, t:"The oldest and pioneering department of the institute, Textile Technology was established on 30 November 1908 as a weaving school offering a two-year certificate course for local weavers and dyers."},
+      {t:"A three-year diploma followed in 1938 and a four-year degree in 1957 under the University of Calcutta. Postgraduate study began with M.Tech in Mechanical Processing of Textiles (1994) and Chemical Processing of Textiles (2008). The B.Tech and M.Tech programmes are duly approved by AICTE, Government of India."},
+      {t:"The department is well known for close industry–institute interaction alongside fundamental and applied research, supported by strong alumni, industry and faculty ties and academic collaborations on specialised areas — positioning the institute as a harbinger of progressive change and innovation."},
+      {t:"It has attracted significant grants from government and non-government agencies, and its large alumni pool is well established nationally and internationally. The programme grounds students in scientific, technological and management fundamentals and the ability to solve challenging textile problems, with a mission to create new knowledge and transfer it to industry and society."},
+    ],
+    programmes:[
+      {t:"B.Tech in Textile Technology", l:"Undergraduate · 4 years", b:"AICTE approved"},
+      {t:"M.Tech in Mechanical Processing of Textiles", l:"Postgraduate · since 1994", b:"AICTE approved"},
+      {t:"M.Tech in Chemical Processing of Textiles", l:"Postgraduate · since 2008", b:"AICTE approved"},
+    ],
+    focusTitle:"Specialisations & strengths",
+    focus:["Mechanical Processing of Textiles","Chemical Processing of Textiles","Fundamental & Applied Research","Industry–Institute Collaboration"],
+    labs:["Facilities for mechanical processing of textiles","Facilities for chemical processing of textiles","Research laboratories for fundamental & applied textile studies"],
+    labsNote:"",
+    placement:"The department's large alumni pool is well established nationally and internationally, in production, quality, maintenance, marketing and entrepreneurship.",
+    recruiters:null,
+  },
+  apm: {
+    code:"APM", name:"Apparel Production Management", since:"2007", est:"2007",
+    intake:60, faculty:11,
+    tagline:"Engineering the business and craft of apparel manufacturing.",
+    intro:[
+      {lead:true, t:"Introduced in 2007 within the Textile Technology department, Apparel Production Management prepares students for the many roles in apparel manufacturing and builds technical expertise to manage evolving technologies and the challenges of the industry."},
+      {t:"The department offers a B.Tech in Apparel Production Management, duly approved by AICTE, Government of India. Apparel production blends fashion technique and design; constant technological upgrades in garment manufacturing have raised export potential and the demand for technically skilled professionals on sophisticated machinery."},
+      {t:"Well-equipped laboratories support a curriculum built around the technological and managerial needs of the garment industry. Compulsory internships in reputed industries across the country expose students to manufacturing processes, technology and machinery, and to production planning, merchandising, work study and quality control."},
+      {t:"Graduates take up roles in design, production, quality assurance and merchandising. The curriculum also introduces apparel manufacturing technology, information technology, quality management and artificial intelligence, alongside the fundamentals of aesthetics, design and management."},
+    ],
+    programmes:[{t:"B.Tech in Apparel Production Management", l:"Undergraduate · 4 years", b:"AICTE approved"}],
+    focusTitle:"Curriculum streams",
+    focus:["Apparel Manufacturing Technology","Quality Management","Merchandising & Work Study","Information Technology & AI","Design & Management Fundamentals"],
+    labs:["Well-equipped apparel & garment laboratories","Industry-aligned production & quality facilities","Compulsory industry internships across the country"],
+    labsNote:"",
+    placement:"Graduates take up positions in designing, production, quality assurance and merchandising in the garment industry, supported by compulsory internships in reputed industries nationwide.",
+    recruiters:null,
+  },
+};
+
+const RES_LINKS = [
+  { label:"Faculty", href:"faculty.html" },
+  { label:"Mandatory Disclosure", href:"https://drive.google.com/file/d/15FVdwql1a778Q3-t9AP7jdPg_qErUB2a/view?usp=sharing", ext:true },
+  { label:"Anti-Ragging Committee", href:"https://drive.google.com/file/d/1KWXbm0YFWtOaYugpUSLzTMPNDcxwK43V/view?usp=sharing", ext:true },
+  { label:"Institutional Committees", href:"https://drive.google.com/file/d/1783lHWlQPfr0uPjfQ2c1cBuFFY4RVm2H/view?usp=sharing", ext:true },
+  { label:"SC/ST Committee", href:"https://drive.google.com/file/d/1bGJ-Boteh8DDOLtRmwuddRu8B5lV1knY/view?usp=sharing", ext:true },
+  { label:"AICTE Open Educational Resources", href:"https://drive.google.com/file/d/1_a9acrMr2E3Iq1J0wzoq8N6sf1LpR2sF/view?usp=share_link", ext:true },
+];
+
+const DEPT_LINKS = [
+  { label:"Computer Science & Engg. (CSE)", href:"departments.html?d=cse" },
+  { label:"Information Technology (IT)", href:"departments.html?d=it" },
+  { label:"Textile Technology (TT)", href:"departments.html?d=tt" },
+  { label:"Apparel Production Mgmt. (APM)", href:"departments.html?d=apm" },
+  { label:"All Departments", href:"departments.html" },
+];
+const MORE_LINKS = [
+  { label:"Notices & Tenders", href:"notices.html" },
+  { label:"Grievance Redressal", href:"https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform", ext:true },
+  { label:"E-magazine", href:"https://www.gcetts.ac.in/e-magazine", ext:true },
+  { label:"AICTE EOA Reports", href:"https://drive.google.com/drive/folders/1fwgXa0EDTmuvWOG9Cj9W_0rtc5ZknU6D?usp=sharing", ext:true },
+  { label:"Anti Ragging", href:"https://drive.google.com/file/d/1KWXbm0YFWtOaYugpUSLzTMPNDcxwK43V/view?usp=sharing", ext:true },
+  { label:"NIRF", href:"https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing", ext:true },
+];
+
+const Ico={
+  mail:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" strokeWidth="2"/></svg>,
+  phone:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-3 2a12 12 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg>,
+  arrow:()=><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  ext:()=><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+};
+function Crest(){return(
+  <svg className="crest" viewBox="0 0 64 64" aria-hidden="true">
+    <circle cx="32" cy="32" r="30" fill="#14233F"/><circle cx="32" cy="32" r="30" fill="none" stroke="#D8A33B" strokeWidth="1.5"/>
+    <g stroke="#6E8BBE" strokeWidth="1.4"><path d="M18 22v20M26 22v20M38 22v20M46 22v20"/></g>
+    <g stroke="#D8A33B" strokeWidth="1.8"><path d="M14 28h36M14 36h36"/></g>
+    <path d="M32 12l3 5h-6l3-5z" fill="#D8A33B"/>
+  </svg>);}
+function Weave({opacity}){return(
+  <svg className="weave-bg" preserveAspectRatio="none" viewBox="0 0 800 600" aria-hidden="true" style={{opacity}}>
+    <defs><pattern id="dw" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M0 0 H40 M0 13 H40 M0 26 H40" stroke="rgba(110,139,190,.5)" strokeWidth="1"/>
+      <path d="M0 0 V40 M13 0 V40 M26 0 V40" stroke="rgba(216,163,59,.28)" strokeWidth="1"/>
+    </pattern></defs><rect width="800" height="600" fill="url(#dw)"/>
+  </svg>);}
+function BrandLogos(){return(
+  <a className="brand" href="index.html" aria-label="GCETTS home">
+    <img className="brand-logo" src="logo-left.png" alt="" onError={e=>{e.currentTarget.style.display='none';}} />
+    <span className="brand-txt"><b>GCETTS</b><span>Serampore · Est. 1908</span></span>
+    <img className="brand-logo" src="logo-right.png" alt="" onError={e=>{e.currentTarget.style.display='none';}} />
+  </a>);}
+function Dropdown({label, items}){return(
+  <div className="nav-dd">
+    <button className="nav-dd-btn" aria-haspopup="true">{label}
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+    </button>
+    <div className="nav-dd-menu" role="menu">
+      {items.map(it=><a key={it.label} href={it.href} role="menuitem" target={it.ext?"_blank":undefined} rel={it.ext?"noopener":undefined}>{it.label}{it.ext && <span className="ext">↗</span>}</a>)}
+    </div>
+  </div>);}
+function Header(){
+  const [open,setOpen]=useState(false);
+  const [acc,setAcc]=useState(null);
+  const tog=(k)=>setAcc(acc===k?null:k);
+  return (
+    <React.Fragment>
+      <div className="topbar"><div className="wrap">
+        <div className="tb-left"><span className="mono">Affiliated to MAKAUT · Approved by AICTE</span></div>
+        <div className="tb-left">
+          <a href="mailto:info@gcetts.ac.in">{Ico.mail()} info@gcetts.ac.in</a>
+          <a href="tel:+9103326621058">{Ico.phone()} (033) 2662-1058</a>
+          <a className="pill" href="https://drive.google.com/file/d/1Vf__yZqNDXnj7tXz9Ue7HqfpBkcwgKub/view?usp=sharing" target="_blank" rel="noopener">Prospectus ↗</a>
+        </div>
+      </div></div>
+      <header className="header"><div className="wrap">
+        <nav className="nav" aria-label="Primary">
+          <BrandLogos/>
+          <div className="navlinks">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#institute">Institute</a>
+            <Dropdown label="Departments" items={DEPT_LINKS}/>
+            <a href="faculty.html">Faculty</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="notices.html">Notices</a>
+            <Dropdown label="More" items={MORE_LINKS}/>
+            <a href="index.html#contact">Contact</a>
+          </div>
+          <a className="nav-cta" href="departments.html">All Departments</a>
+          <button className={"burger"+(open?" open":"")} aria-label="Toggle menu" aria-expanded={open} onClick={()=>setOpen(!open)}><span></span><span></span><span></span></button>
+        </nav>
+      </div>
+      <div className={"drawer"+(open?" open":"")}>
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#institute">Institute</a></li>
+          <li><button className="acc-btn" aria-expanded={acc==='dept'} onClick={()=>tog('dept')}>Departments <span>{acc==='dept'?'–':'+'}</span></button></li>
+          {acc==='dept' && <li className="sub">{DEPT_LINKS.map(d=><a key={d.label} href={d.href} target={d.ext?"_blank":undefined} rel={d.ext?"noopener":undefined}>{d.label}</a>)}</li>}
+          <li><a href="faculty.html">Faculty</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="notices.html">Notices &amp; Tenders</a></li>
+          <li><button className="acc-btn" aria-expanded={acc==='more'} onClick={()=>tog('more')}>More <span>{acc==='more'?'–':'+'}</span></button></li>
+          {acc==='more' && <li className="sub">{MORE_LINKS.map(m=><a key={m.label} href={m.href} target={m.ext?"_blank":undefined} rel={m.ext?"noopener":undefined}>{m.label}</a>)}</li>}
+          <li><a href="index.html#contact">Contact</a></li>
+          <li><a className="d-cta" href="departments.html">All Departments</a></li>
+        </ul>
+      </div>
+      </header>
+    </React.Fragment>
+  );
+}
+function Footer(){return(
+  <footer className="footer"><div className="wrap">
+    <div className="foot-top">
+      <div className="foot-brand">
+        <div className="brand"><Crest/><span className="brand-txt"><b style={{color:"#fff"}}>GCETTS</b><span>Serampore · Est. 1908</span></span></div>
+        <p>Government College of Engineering &amp; Textile Technology, Serampore. Affiliated to MAKAUT, approved by AICTE.</p>
+      </div>
+      <div className="foot-col"><h4>Departments</h4>
+        <a href="departments.html?d=cse">Computer Science &amp; Engg.</a>
+        <a href="departments.html?d=it">Information Technology</a>
+        <a href="departments.html?d=tt">Textile Technology</a>
+        <a href="departments.html?d=apm">Apparel Production Mgmt.</a>
+      </div>
+      <div className="foot-col"><h4>Institute</h4>
+        <a href="index.html#institute">About &amp; History</a>
+        <a href="faculty.html">Faculty</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="notices.html">Notices &amp; Tenders</a>
+      </div>
+      <div className="foot-col"><h4>Resources</h4>
+        <a href="https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing" target="_blank" rel="noopener">NIRF</a>
+        <a href="https://drive.google.com/file/d/15FVdwql1a778Q3-t9AP7jdPg_qErUB2a/view?usp=sharing" target="_blank" rel="noopener">Mandatory Disclosure</a>
+        <a href="https://drive.google.com/file/d/1KWXbm0YFWtOaYugpUSLzTMPNDcxwK43V/view?usp=sharing" target="_blank" rel="noopener">Anti-Ragging</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </div>
+    <div className="foot-bottom">
+      <span>© {new Date().getFullYear()} Government College of Engineering and Textile Technology, Serampore. All rights reserved.</span>
+      <span className="mono">Serampore · Hooghly · West Bengal</span>
+    </div>
+  </div></footer>);}
+
+function useReveal(dep){
+  useEffect(()=>{
+    const els=document.querySelectorAll('.reveal');
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){els.forEach(e=>e.classList.add('in'));return;}
+    const io=new IntersectionObserver(en=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.06});
+    els.forEach(e=>io.observe(e));return ()=>io.disconnect();
+  },[dep]);
+}
+
+function Detail({code}){
+  const d=DEPTS[code];
+  useReveal(code);
+  useEffect(()=>{ document.title = "Department of "+d.name+" · GCETTS"; window.scrollTo({top:0,behavior:"auto"}); },[code]);
+  const i=ORDER.indexOf(code);
+  const prev=DEPTS[ORDER[(i-1+ORDER.length)%ORDER.length]];
+  const next=DEPTS[ORDER[(i+1)%ORDER.length]];
+  const prevId=ORDER[(i-1+ORDER.length)%ORDER.length];
+  const nextId=ORDER[(i+1)%ORDER.length];
+  const pg = d.programmes.length;
+  return (
+    <React.Fragment>
+      <section className="dhero">
+        <Weave opacity={.4}/><div className="glow"></div>
+        <div className="wrap">
+          <div className="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="departments.html">Departments</a> &nbsp;/&nbsp; {d.code}</div>
+          <span className="eyebrow on-dark">Department · {d.code}</span>
+          <h1>Department of <em>{d.name}</em>.</h1>
+          <p className="lead">{d.tagline}</p>
+          <div className="chips">
+            <span className="dchip"><span className="g">Est.</span> <b>{d.est}</b></span>
+            <span className="dchip">Annual intake <b>{d.intake}</b></span>
+            <span className="dchip">Faculty <b>{d.faculty}</b></span>
+            <span className="dchip"><b>AICTE</b> approved</span>
+            <span className="dchip">Affiliated to <b>MAKAUT</b></span>
+          </div>
+          <div className="hero-cta">
+            <a className="btn btn-gold" href="https://drive.google.com/file/d/1Vf__yZqNDXnj7tXz9Ue7HqfpBkcwgKub/view?usp=sharing" target="_blank" rel="noopener">Prospectus {Ico.arrow()}</a>
+            <a className="btn btn-ghost" href="faculty.html">Department Faculty</a>
+          </div>
+        </div>
+      </section>
+
+      <main className="dbody" id="main">
+        <div className="wrap">
+          <div className="dgrid">
+            <div className="prose reveal">
+              <h2>Overview</h2>
+              {d.intro.map((p,idx)=><p key={idx} className={p.lead?"lead":""}>{p.t}</p>)}
+
+              <div className="block">
+                <h2>Programmes</h2>
+                <div className="rule"></div>
+                <div className="progs">
+                  {d.programmes.map((p,idx)=>(
+                    <div className="prog" key={idx}>
+                      <div><div className="pt">{p.t}</div><div className="pl">{p.l}</div></div>
+                      <span className="badge">{p.b}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="block">
+                <h2>{d.focusTitle}</h2>
+                <div className="rule"></div>
+                <div className="taglist">{d.focus.map((f,idx)=><span className="tag" key={idx}>{f}</span>)}</div>
+              </div>
+
+              <div className="block">
+                <h2>Laboratories &amp; facilities</h2>
+                <div className="rule"></div>
+                <ul className="flist">{d.labs.map((l,idx)=><li key={idx}>{l}</li>)}</ul>
+                {d.labsNote && <p style={{marginTop:"14px",fontSize:".92rem",color:"var(--ink-soft)"}}>{d.labsNote}</p>}
+              </div>
+
+              <div className="block">
+                <h2>Placements &amp; industry</h2>
+                <div className="rule"></div>
+                <p style={{color:"var(--ink-soft)"}}>{d.placement}</p>
+                {d.recruiters && <div className="recruiters">{d.recruiters.map((r,idx)=><span className="rec" key={idx}>{r}</span>)}</div>}
+              </div>
+            </div>
+
+            <aside className="side reveal">
+              <div className="facts">
+                <Weave opacity={.25}/>
+                <div style={{position:"relative"}}>
+                  <h3>Quick facts</h3>
+                  <div className="fact"><span>Established</span><b>{d.est}</b></div>
+                  <div className="fact"><span>Programmes</span><b>{pg===1?"B.Tech":"B.Tech + M.Tech"}</b></div>
+                  <div className="fact"><span>Annual intake</span><b>{d.intake} (B.Tech)</b></div>
+                  <div className="fact"><span>Faculty members</span><b>{d.faculty}</b></div>
+                  <div className="fact"><span>Approval</span><b>AICTE</b></div>
+                  <div className="fact"><span>Affiliation</span><b>MAKAUT</b></div>
+                </div>
+              </div>
+              <div className="reslinks">
+                <h3>Department resources</h3>
+                {RES_LINKS.map(r=>(
+                  <a key={r.label} href={r.href} target={r.ext?"_blank":undefined} rel={r.ext?"noopener":undefined}>
+                    {r.label}<span className="ar">{r.ext?<Ico.ext/>:Ico.arrow()}</span>
+                  </a>
+                ))}
+              </div>
+            </aside>
+          </div>
+
+          <nav className="deptnav" aria-label="Other departments">
+            <a href={"departments.html?d="+prevId}><div className="lab">← Previous</div><div className="nm">{prev.code} — {prev.name}</div></a>
+            <a className="next" href={"departments.html?d="+nextId}><div className="lab">Next →</div><div className="nm">{next.code} — {next.name}</div></a>
+          </nav>
+        </div>
+      </main>
+    </React.Fragment>
+  );
+}
+
+function Landing(){
+  useReveal("landing");
+  useEffect(()=>{ document.title="Departments · GCETTS"; },[]);
+  return (
+    <React.Fragment>
+      <section className="dhero">
+        <Weave opacity={.4}/><div className="glow"></div>
+        <div className="wrap">
+          <div className="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Departments</div>
+          <span className="eyebrow on-dark">Academics</span>
+          <h1>Four disciplines, <em>one fabric</em>.</h1>
+          <p className="lead">Undergraduate and postgraduate programmes spanning computing, textiles and apparel — each approved by the All India Council for Technical Education and affiliated to MAKAUT.</p>
+        </div>
+      </section>
+      <main className="landing" id="main">
+        <div className="wrap">
+          <div className="dcards">
+            {ORDER.map(code=>{const d=DEPTS[code];const pg=d.programmes.length;return(
+              <a className="dcard reveal" key={code} href={"departments.html?d="+code}>
+                <span className="code">DEPT · {d.code}</span>
+                <h3>{d.name}</h3>
+                <p>{d.tagline}</p>
+                <div className="foot">
+                  <span className="lvl">{pg>1?"B.Tech · M.Tech":"B.Tech"} · Est. {d.since}</span>
+                  <span className="go">Explore {Ico.arrow()}</span>
+                </div>
+              </a>
+            );})}
+          </div>
+        </div>
+      </main>
+    </React.Fragment>
+  );
+}
+
+function App(){
+  const params=new URLSearchParams(location.search);
+  let code=(params.get("d")||location.hash.replace("#","")||"").toLowerCase();
+  if(!DEPTS[code]) code=null;
+  return (
+    <React.Fragment>
+      <a className="skip" href="#main">Skip to content</a>
+      <Header/>
+      {code ? <Detail code={code}/> : <Landing/>}
+      <Footer/>
+    </React.Fragment>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>

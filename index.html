@@ -316,10 +316,10 @@ const { useState, useEffect, useRef } = React;
    Grievance Redressal · Gallery · E-magazine · Research News · AICTE EOA Reports ·
    Anti Ragging · NIRF  — regrouped for a clean, modern bar. */
 const DEPT_LINKS = [
-  { label:"Computer Science & Engg. (CSE)", href:"https://www.gcetts.ac.in/departments/cse", ext:true },
-  { label:"Information Technology (IT)", href:"https://www.gcetts.ac.in/departments/it", ext:true },
-  { label:"Textile Technology (TT)", href:"https://www.gcetts.ac.in/departments/tt", ext:true },
-  { label:"Apparel Production Mgmt. (APM)", href:"https://www.gcetts.ac.in/departments/apm", ext:true },
+  { label:"Computer Science & Engg. (CSE)", href:"departments.html?d=cse" },
+  { label:"Information Technology (IT)", href:"departments.html?d=it" },
+  { label:"Textile Technology (TT)", href:"departments.html?d=tt" },
+  { label:"Apparel Production Mgmt. (APM)", href:"departments.html?d=apm" },
   { label:"All Departments", href:"#departments" },
 ];
 const MORE_LINKS = [
@@ -335,16 +335,16 @@ const MORE_LINKS = [
 const DEPTS = [
   { code:"CSE", name:"Computer Science & Engineering", level:"B.Tech",
     desc:"The institute's flagship computing discipline — a B.Tech in Computer Science & Engineering, approved by AICTE, with software, networking and systems laboratories.",
-    href:"https://www.gcetts.ac.in/departments/cse" },
+    href:"departments.html?d=cse" },
   { code:"IT",  name:"Information Technology", level:"B.Tech",
     desc:"A B.Tech degree in Information Technology, approved by AICTE, covering programming, data systems, the web and modern computing practice.",
-    href:"https://www.gcetts.ac.in/departments/it" },
+    href:"departments.html?d=it" },
   { code:"TT",  name:"Textile Technology", level:"B.Tech · M.Tech",
     desc:"The founding and oldest department of the institute, approved by AICTE — with M.Tech specialisations in Mechanical & Chemical Processing of Textiles.",
-    href:"https://www.gcetts.ac.in/departments/tt" },
+    href:"departments.html?d=tt" },
   { code:"APM", name:"Apparel Production Management", level:"B.Tech",
     desc:"A B.Tech degree in Apparel Production Management, approved by AICTE, bridging textile heritage with industry-ready garment production.",
-    href:"https://www.gcetts.ac.in/departments/apm" },
+    href:"departments.html?d=apm" },
 ];
 
 const TIMELINE = [
@@ -692,7 +692,7 @@ function Departments(){
         </div>
         <div className="dept-grid">
           {DEPTS.map(d=>(
-            <a className="dept-card reveal" key={d.code} href={d.href} target="_blank" rel="noopener">
+            <a className="dept-card reveal" key={d.code} href={d.href}>
               <span className="dept-code">DEPT · {d.code}</span>
               <h3>{d.name}</h3>
               <p>{d.desc}</p>
@@ -906,7 +906,7 @@ function Footer(){
           </div>
           <div className="foot-col">
             <h4>Academics</h4>
-            {DEPTS.map(d=><a key={d.code} href={d.href} target="_blank" rel="noopener">{d.name}</a>)}
+            {DEPTS.map(d=><a key={d.code} href={d.href}>{d.name}</a>)}
             <a href="faculty.html">Faculty</a>
           </div>
           <div className="foot-col">
