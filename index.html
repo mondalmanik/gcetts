@@ -11,6 +11,12 @@
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
+<!-- Notices & Tenders feed (data files are optional / auto-generated) -->
+<script src="drive-feed.js"></script>
+<script src="notices-data.js"></script>
+<!-- Optional live mode: drive-config.js can define window.DRIVE_CONFIG -->
+<script src="drive-config.js"></script>
+
 <!-- Type system: heritage serif + engineering sans + utility mono -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -161,6 +167,13 @@ ul{list-style:none}
 .ticker-track a{font-size:.84rem;color:#e7e7e2;display:inline-flex;gap:9px;align-items:center}
 .ticker-track a:hover{color:var(--gold)}
 .ticker-track .dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.ticker-track.still{animation:none;padding-left:0}
+.tk-badge{font-family:'Spline Sans Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:2px 7px;border-radius:999px}
+.tk-badge.n{background:rgba(216,163,59,.22);color:var(--gold)}
+.tk-badge.t{background:rgba(110,139,190,.28);color:#cfe0ff}
+.tk-date{font-family:'Spline Sans Mono',monospace;font-size:.66rem;color:#9aa6c0}
+.ticker-all{flex:0 0 auto;display:flex;align-items:center;padding:0 16px;font-family:'Spline Sans Mono',monospace;font-size:.7rem;letter-spacing:.08em;color:var(--gold);border-left:1px solid rgba(255,255,255,.12)}
+.ticker-all:hover{color:#fff}
 
 /* ============ SECTION BASE ============ */
 section{padding:74px 0}
@@ -308,8 +321,8 @@ const DEPT_LINKS = [
   { label:"All Departments", href:"#departments" },
 ];
 const MORE_LINKS = [
-  { label:"Notice", href:"https://docs.google.com/document/d/1CTljdy3NvihIsr-14lJeN7kFxWW1OZD_dl-b4AL_W8c/edit?usp=sharing", ext:true },
-  { label:"Tender", href:"https://docs.google.com/document/d/1JdMfS6tfgmFLtE5bXNl36hsdZ4eWHUp44pxpHC_iCtE/edit?usp=sharing", ext:true },
+  { label:"Notice", href:"notices.html#notices" },
+  { label:"Tender", href:"notices.html#tenders" },
   { label:"Grievance Redressal", href:"https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform", ext:true },
   { label:"E-magazine", href:"https://www.gcetts.ac.in/e-magazine", ext:true },
   { label:"AICTE EOA Reports", href:"https://drive.google.com/drive/folders/1fwgXa0EDTmuvWOG9Cj9W_0rtc5ZknU6D?usp=sharing", ext:true },
@@ -352,18 +365,10 @@ const STATS = [
   { n:"2", l:"M.Tech Specialisations" },
 ];
 
-const NOTICES = [
-  { t:"Latest Notices & Circulars", href:"https://docs.google.com/document/d/1CTljdy3NvihIsr-14lJeN7kFxWW1OZD_dl-b4AL_W8c/edit?usp=sharing" },
-  { t:"Admission Prospectus 2025", href:"https://drive.google.com/file/d/1Vf__yZqNDXnj7tXz9Ue7HqfpBkcwgKub/view?usp=sharing" },
-  { t:"Tender Notifications", href:"https://docs.google.com/document/d/1JdMfS6tfgmFLtE5bXNl36hsdZ4eWHUp44pxpHC_iCtE/edit?usp=sharing" },
-  { t:"AICTE EOA Reports", href:"https://drive.google.com/drive/folders/1fwgXa0EDTmuvWOG9Cj9W_0rtc5ZknU6D?usp=sharing" },
-  { t:"NIRF Disclosure", href:"https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing" },
-];
-
 const LINKS = [
-  { b:"Notices", s:"Circulars & updates", href:"https://docs.google.com/document/d/1CTljdy3NvihIsr-14lJeN7kFxWW1OZD_dl-b4AL_W8c/edit?usp=sharing" },
+  { b:"Notices", s:"Circulars & updates", href:"notices.html#notices" },
   { b:"Prospectus", s:"Admission details", href:"https://drive.google.com/file/d/1Vf__yZqNDXnj7tXz9Ue7HqfpBkcwgKub/view?usp=sharing" },
-  { b:"Tender", s:"Procurement notices", href:"https://docs.google.com/document/d/1JdMfS6tfgmFLtE5bXNl36hsdZ4eWHUp44pxpHC_iCtE/edit?usp=sharing" },
+  { b:"Tender", s:"Procurement notices", href:"notices.html#tenders" },
   { b:"Grievance Redressal", s:"Raise a concern", href:"https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform" },
   { b:"Gallery", s:"Campus moments", href:"gallery.html" },
   { b:"E-Magazine", s:"Student publication", href:"https://www.gcetts.ac.in/e-magazine" },
@@ -585,17 +590,38 @@ function Hero(){
 }
 
 function Ticker(){
-  const items=[...NOTICES,...NOTICES];
+  const [items,setItems]=useState(null); // null = loading
+  useEffect(()=>{
+    let on=true;
+    const p = (window.DriveFeed ? window.DriveFeed.load() : Promise.resolve({notices:[],tenders:[]}));
+    p.then(d=>{
+      if(!on) return;
+      const n=(d.notices||[]).slice(0,3).map(x=>({...x,tag:"Notice"}));
+      const t=(d.tenders||[]).slice(0,1).map(x=>({...x,tag:"Tender"}));
+      setItems([...n,...t]);
+    }).catch(()=>{ if(on) setItems([]); });
+    return ()=>{on=false;};
+  },[]);
+
+  if(!items || items.length===0) return null;   // nothing to show -> hide entirely
+  const fmt=(iso)=>{ if(!iso) return ""; const d=new Date(iso); return isNaN(d)?"":d.toLocaleDateString(undefined,{day:"numeric",month:"short"}); };
+  const loop = items.length>1 ? [...items,...items] : items;
+
   return (
-    <div className="ticker" role="region" aria-label="Announcements">
-      <div className="ticker-tag">● Updates</div>
+    <div className="ticker" role="region" aria-label="Latest notices and tenders">
+      <div className="ticker-tag">● Latest</div>
       <div style={{overflow:"hidden",flex:1}}>
-        <div className="ticker-track">
-          {items.map((n,i)=>(
-            <a key={i} href={n.href} target="_blank" rel="noopener"><span className="dot"></span>{n.t}</a>
+        <div className={"ticker-track"+(items.length>1?"":" still")}>
+          {loop.map((n,i)=>(
+            <a key={i} href={n.url} target="_blank" rel="noopener">
+              <span className={"tk-badge "+(n.tag==="Tender"?"t":"n")}>{n.tag}</span>
+              {n.name}
+              {n.date && <span className="tk-date">{fmt(n.date)}</span>}
+            </a>
           ))}
         </div>
       </div>
+      <a className="ticker-all" href="notices.html">All ↗</a>
     </div>
   );
 }
@@ -889,7 +915,7 @@ function Footer(){
           </div>
           <div className="foot-col">
             <h4>Resources</h4>
-            <a href="https://docs.google.com/document/d/1CTljdy3NvihIsr-14lJeN7kFxWW1OZD_dl-b4AL_W8c/edit?usp=sharing" target="_blank" rel="noopener">Notices</a>
+            <a href="notices.html#notices">Notices</a>
             <a href="https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing" target="_blank" rel="noopener">NIRF</a>
             <a href="https://drive.google.com/file/d/1KWXbm0YFWtOaYugpUSLzTMPNDcxwK43V/view?usp=sharing" target="_blank" rel="noopener">Anti-Ragging</a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform" target="_blank" rel="noopener">Grievance Redressal</a>

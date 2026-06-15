@@ -164,3 +164,54 @@ so your repo stays clean and there are no commit loops.
 > Pages steps, and replace them with a step that commits the generated files
 > back to the branch your Pages serves from. The Actions-based deploy above is
 > the cleaner default.
+
+---
+
+## 6. Notices & Tenders (Drive-backed, newest first)
+
+The **Notices & Tenders** page (`notices.html`) and the homepage ticker read a
+date-sorted feed of files from two Drive folders — the same pattern as the
+gallery.
+
+Files involved:
+- `drive-feed.js` — shared loader (used by `index.html` and `notices.html`)
+- `notices-data.js` — the generated data (ships with clearly-labelled SAMPLE
+  rows so you can see the UI; replaced by the build step below)
+- `build_notices_from_drive.py` — generates `notices-data.js` from Drive
+
+### Generate from Drive
+1. Put your two folders in `build_notices_from_drive.py`
+   (`NOTICES_FOLDER`, `TENDERS_FOLDER`) — each shared *Anyone with link: Viewer*.
+2. Provide the key: `export DRIVE_API_KEY=xxxx` (or reuse the same
+   `GALLERY_DRIVE_API_KEY` secret in CI).
+3. Run:
+
+        python3 build_notices_from_drive.py
+
+   -> writes `notices-data.js`, files newest-first, with type icons (PDF/DOC/…),
+   dates, a "New" badge for the last 14 days, search and tabs on the page.
+
+### Homepage ticker
+The scrolling strip under the hero shows the **latest 3 notices + 1 tender**.
+If both feeds are empty it renders **nothing** (the strip disappears).
+
+### Optional: live mode (no rebuilds)
+Create `drive-config.js` (don't commit a secret key — restrict it by HTTP
+referrer in Google Cloud) :
+
+    window.DRIVE_CONFIG = {
+      apiKey: "YOUR_REFERRER_RESTRICTED_KEY",
+      noticesFolder: "https://drive.google.com/drive/folders/...",
+      tendersFolder: "https://drive.google.com/drive/folders/..."
+    };
+
+If present (and no generated `notices-data.js`), the page/ticker fetch Drive
+live in the browser.
+
+### CI behaviour
+`.github/workflows/deploy.yml` now also:
+- runs `build_notices_from_drive.py` when the Drive key secret is set,
+- **empties** `notices-data.js` on deploy when no key is set (so the sample
+  never shows on a real site), and
+- runs on a **6-hourly schedule** so new notices/tenders go live automatically
+  without a code push.
