@@ -187,7 +187,8 @@ ul{list-style:none}
 .ln-track.still{animation:none}
 @keyframes lnscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .ln-viewport:hover .ln-track{animation-play-state:paused}
-.ln-card{position:relative;width:340px;height:230px;flex:0 0 auto;border-radius:16px;overflow:hidden;background:var(--indigo-800);box-shadow:0 16px 36px -22px rgba(20,35,63,.55)}
+.ln-card{position:relative;width:340px;height:230px;flex:0 0 auto;border:none;padding:0;margin:0;font:inherit;color:inherit;text-align:left;cursor:zoom-in;border-radius:16px;overflow:hidden;background:var(--indigo-800);box-shadow:0 16px 36px -22px rgba(20,35,63,.55)}
+.ln-card:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .ln-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
 .ln-card:hover img{transform:scale(1.06)}
 .ln-ph{position:absolute;inset:0;background:linear-gradient(150deg,var(--indigo-800),var(--indigo-600))}
@@ -195,6 +196,17 @@ ul{list-style:none}
 .ln-cap{position:absolute;left:0;right:0;bottom:0;padding:36px 16px 15px;color:#fff;font-weight:700;font-size:1rem;line-height:1.25;background:linear-gradient(transparent,rgba(14,27,51,.9));display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 @media(max-width:560px){.ln-card{width:280px;height:190px}}
 @media (prefers-reduced-motion:reduce){.ln-track{animation:none;overflow-x:auto;-webkit-overflow-scrolling:touch}.ln-viewport{-webkit-mask-image:none;mask-image:none}}
+/* Latest News lightbox */
+.ln-lightbox{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(14,27,51,.86);backdrop-filter:blur(6px);cursor:zoom-out;animation:lnfade .2s ease}
+@keyframes lnfade{from{opacity:0}to{opacity:1}}
+.ln-figure{margin:0;max-width:1100px;width:100%;display:flex;flex-direction:column;align-items:center;gap:14px;animation:lnpop .24s cubic-bezier(.2,.8,.25,1)}
+@keyframes lnpop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+.ln-figure img{max-width:100%;max-height:80vh;width:auto;height:auto;border-radius:14px;box-shadow:0 30px 80px -28px rgba(0,0,0,.7);display:block}
+.ln-figure .ln-ph-big{width:min(92vw,760px);height:min(60vh,500px);position:relative;border-radius:14px;overflow:hidden;background:linear-gradient(150deg,var(--indigo-800),var(--indigo-600))}
+.ln-figure figcaption{color:#fff;font-family:'Fraunces',serif;font-size:1.15rem;text-align:center;max-width:60ch;padding:0 10px}
+.ln-close{position:fixed;top:18px;right:22px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:1.8rem;line-height:1;cursor:pointer;transition:background .2s,transform .2s}
+.ln-close:hover{background:var(--gold);color:var(--indigo-950);border-color:var(--gold);transform:rotate(90deg)}
+@media (prefers-reduced-motion:reduce){.ln-lightbox,.ln-figure{animation:none}.ln-close:hover{transform:none}}
 
 /* ============ SECTION BASE ============ */
 section{padding:74px 0}
@@ -668,12 +680,20 @@ function LNImg({photo}){
 
 function LatestNews(){
   const [items,setItems]=useState(null);
+  const [active,setActive]=useState(null); // enlarged photo or null
   useEffect(()=>{
     let on=true;
     const p = (window.DriveFeed ? window.DriveFeed.load() : Promise.resolve({latestNews:[]}));
     p.then(d=>{ if(on) setItems(d.latestNews||[]); }).catch(()=>{ if(on) setItems([]); });
     return ()=>{on=false;};
   },[]);
+  useEffect(()=>{
+    if(!active) return;
+    const onKey=(e)=>{ if(e.key==="Escape") setActive(null); };
+    document.addEventListener("keydown",onKey);
+    document.body.style.overflow="hidden";
+    return ()=>{ document.removeEventListener("keydown",onKey); document.body.style.overflow=""; };
+  },[active]);
   if(!items || items.length===0) return null;   // no images -> section hidden
   const loop = items.length>1 ? [...items,...items] : items;
   return (
@@ -688,13 +708,24 @@ function LatestNews(){
       <div className="ln-viewport">
         <div className={"ln-track"+(items.length>1?"":" still")}>
           {loop.map((p,i)=>(
-            <div className="ln-card" key={i}>
+            <button className="ln-card" key={i} type="button" onClick={()=>setActive(p)} aria-label={"Enlarge: "+(p.cap||"image")}>
               <LNImg photo={p}/>
               {p.cap && <span className="ln-cap">{p.cap}</span>}
-            </div>
+            </button>
           ))}
         </div>
       </div>
+      {active && (
+        <div className="ln-lightbox" onClick={()=>setActive(null)} role="dialog" aria-modal="true" aria-label={active.cap||"Image"}>
+          <button className="ln-close" type="button" aria-label="Close">&times;</button>
+          <figure className="ln-figure" onClick={()=>setActive(null)}>
+            {active.url
+              ? <img src={active.url} srcSet={active.srcset||undefined} sizes="92vw" alt={active.cap||"Latest news"} />
+              : <div className="ln-ph ln-ph-big"><svg viewBox="0 0 120 120" preserveAspectRatio="none" aria-hidden="true"><rect width="120" height="120" fill="url(#lnw)"/></svg></div>}
+            {active.cap && <figcaption>{active.cap}</figcaption>}
+          </figure>
+        </div>
+      )}
     </section>
   );
 }
