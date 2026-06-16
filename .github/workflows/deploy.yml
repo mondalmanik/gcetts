@@ -50,6 +50,10 @@ jobs:
         if: ${{ env.GALLERY_DRIVE_API_KEY != '' }}
         run: python3 build_notices_from_drive.py
 
+      - name: Build Latest News carousel from Google Drive (optional)
+        if: ${{ env.GALLERY_DRIVE_API_KEY != '' }}
+        run: python3 build_latestnews_from_drive.py
+
       - name: Clear sample notices when Drive is not configured
         if: ${{ env.GALLERY_DRIVE_API_KEY == '' }}
         run: |
@@ -57,6 +61,9 @@ jobs:
             '// No Drive key configured — notices/tenders intentionally empty.' \
             'window.NOTICES_DATA = [];' \
             'window.TENDERS_DATA = [];' > notices-data.js
+          printf '%s\n' \
+            '// No Drive key configured — Latest News intentionally empty.' \
+            'window.LATEST_NEWS_DATA = [];' > latestnews-data.js
 
       - name: Assemble site
         run: |
@@ -76,6 +83,8 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
