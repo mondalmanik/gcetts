@@ -122,7 +122,17 @@
             latestNews = imgs.map(function (x) { return resolveImg(x, 1200); });
           } catch (e) { latestNews = []; }
         }
-        return { notices: notices, tenders: tenders, latestNews: latestNews, source: source };
+        // Research Highlights images (separate folder)
+        var researchHighlights = [];
+        if (Array.isArray(window.RESEARCH_HIGHLIGHTS_DATA)) {
+          researchHighlights = window.RESEARCH_HIGHLIGHTS_DATA.map(function (x) { return resolveImg(x, 1200); });
+        } else if (cfg.apiKey && cfg.researchHighlightsFolder) {
+          try {
+            var rimgs = await fetchImages(cfg.apiKey, folderId(cfg.researchHighlightsFolder));
+            researchHighlights = rimgs.map(function (x) { return resolveImg(x, 1200); });
+          } catch (e) { researchHighlights = []; }
+        }
+        return { notices: notices, tenders: tenders, latestNews: latestNews, researchHighlights: researchHighlights, source: source };
       })();
       return _cache;
     }

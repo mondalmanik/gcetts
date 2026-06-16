@@ -255,3 +255,39 @@ Files involved:
 when the Drive key secret is set, and **empties** `latestnews-data.js` on deploy
 when no key is set (so the sample never shows on a real site). The existing
 6-hourly schedule keeps it fresh.
+
+
+---
+
+## 8. Research Highlights box (homepage, right of Latest News)
+
+The homepage now shows **two side-by-side single-image boxes** that auto-advance
+from inside the box:
+
+- **Latest News** (left) — folder set in `build_latestnews_from_drive.py`
+- **Research Highlights** (right) — a *different* folder, set in
+  `build_research_highlights_from_drive.py`
+
+Both behave the same: one image at a time slides within a fixed box, captions are
+the file names without extension, dots let you jump, hover pauses, and clicking
+opens the enlarged lightbox. Each box hides itself if its folder is empty.
+
+### Generate Research Highlights from Drive
+1. Put your image folder in `build_research_highlights_from_drive.py`
+   (`RESEARCH_HIGHLIGHTS_FOLDER`) — shared *Anyone with link: Viewer*.
+2. `export DRIVE_API_KEY=xxxx` (or reuse the `GALLERY_DRIVE_API_KEY` secret).
+3. Run:
+
+        python3 build_research_highlights_from_drive.py
+
+   -> writes `research-highlights-data.js`, images newest-first.
+
+### Optional live mode
+Add `researchHighlightsFolder` (and `latestNewsFolder`) to `window.DRIVE_CONFIG`
+in `drive-config.js` to fetch live in the browser without rebuilds.
+
+### CI behaviour
+`.github/workflows/deploy.yml` runs both image builders when the Drive key secret
+is set, and empties both `latestnews-data.js` and `research-highlights-data.js` on
+deploy when no key is set (so samples never show on a real site). The 6-hourly
+schedule keeps them fresh.

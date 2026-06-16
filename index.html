@@ -15,6 +15,7 @@
 <script src="drive-feed.js"></script>
 <script src="notices-data.js"></script>
 <script src="latestnews-data.js"></script>
+<script src="research-highlights-data.js"></script>
 <!-- Optional live mode: drive-config.js can define window.DRIVE_CONFIG -->
 <script src="drive-config.js"></script>
 
@@ -177,26 +178,24 @@ ul{list-style:none}
 .tk-date{font-family:'Spline Sans Mono',monospace;font-size:.66rem;color:#9aa6c0}
 .ticker-all{flex:0 0 auto;display:flex;align-items:center;padding:0 16px;font-family:'Spline Sans Mono',monospace;font-size:.7rem;letter-spacing:.08em;color:var(--gold);border-left:1px solid rgba(255,255,255,.12)}
 .ticker-all:hover{color:#fff}
-/* Latest News carousel */
-.latest{padding:62px 0 14px;background:var(--paper)}
-.latest-head{margin-bottom:8px}
-.latest-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--indigo-900);letter-spacing:-.015em;margin-top:10px}
-.latest-head .ln-rule{height:3px;width:62px;background:var(--gold);border-radius:2px;margin-top:14px}
-.ln-viewport{overflow:hidden;padding:26px 0 60px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
-.ln-track{display:flex;width:max-content;animation:lnscroll 40s linear infinite;will-change:transform}
-.ln-track.still{animation:none;width:100%;justify-content:center}
-.ln-group{display:flex;gap:18px;padding-left:18px;flex:0 0 auto}
-@keyframes lnscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ln-viewport:hover .ln-track{animation-play-state:paused}
-.ln-card{position:relative;width:340px;height:230px;flex:0 0 auto;border:none;padding:0;margin:0;font:inherit;color:inherit;text-align:left;cursor:zoom-in;border-radius:16px;overflow:hidden;background:var(--indigo-800);box-shadow:0 16px 36px -22px rgba(20,35,63,.55)}
-.ln-card:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-.ln-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
-.ln-card:hover img{transform:scale(1.06)}
+/* Home image strips: Latest News + Research Highlights */
+.strips{padding:62px 0 66px;background:var(--paper)}
+.strips-grid{display:grid;gap:26px}
+@media(min-width:860px){.strips-grid{grid-template-columns:1fr 1fr}}
+.sb-head{margin-bottom:16px}
+.sb-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.5rem,3vw,2rem);color:var(--indigo-900);letter-spacing:-.015em;margin-top:8px}
+.sb-head .ln-rule{height:3px;width:54px;background:var(--gold);border-radius:2px;margin-top:12px}
+.sb-box{position:relative;border-radius:18px;overflow:hidden;background:var(--indigo-800);box-shadow:0 20px 44px -26px rgba(20,35,63,.6);aspect-ratio:16/10}
+.sb-track{display:flex;height:100%;transition:transform .7s cubic-bezier(.4,0,.2,1);will-change:transform}
+.sb-slide{position:relative;flex:0 0 100%;width:100%;height:100%;border:none;padding:0;margin:0;background:none;cursor:zoom-in;overflow:hidden}
+.sb-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.sb-slide:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+.sb-dots{position:absolute;bottom:12px;left:0;right:0;display:flex;gap:7px;justify-content:center;z-index:3}
+.sb-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:width .25s,background .25s}
+.sb-dot.on{background:var(--gold);width:20px;border-radius:4px}
 .ln-ph{position:absolute;inset:0;background:linear-gradient(150deg,var(--indigo-800),var(--indigo-600))}
 .ln-ph svg{position:absolute;inset:0;width:100%;height:100%}
-.ln-cap{position:absolute;left:0;right:0;bottom:0;padding:36px 16px 15px;color:#fff;font-weight:700;font-size:1rem;line-height:1.25;background:linear-gradient(transparent,rgba(14,27,51,.9));display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-@media(max-width:560px){.ln-card{width:280px;height:190px}}
-@media (prefers-reduced-motion:reduce){.ln-track{animation:none;overflow-x:auto;-webkit-overflow-scrolling:touch}.ln-viewport{-webkit-mask-image:none;mask-image:none}}
+.ln-cap{position:absolute;left:0;right:0;bottom:0;padding:40px 18px 16px;color:#fff;font-weight:700;font-size:1.05rem;line-height:1.25;background:linear-gradient(transparent,rgba(14,27,51,.92));display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 /* Latest News lightbox */
 .ln-lightbox{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(14,27,51,.86);backdrop-filter:blur(6px);cursor:zoom-out;animation:lnfade .2s ease}
 @keyframes lnfade{from{opacity:0}to{opacity:1}}
@@ -679,13 +678,57 @@ function LNImg({photo}){
   return <img src={photo.url} srcSet={photo.srcset||undefined} sizes="340px" loading="lazy" decoding="async" alt={photo.cap||"Latest news"} onError={()=>setErr(true)} />;
 }
 
-function LatestNews(){
-  const [items,setItems]=useState(null);
-  const [active,setActive]=useState(null); // enlarged photo or null
+function SlideBox({eyebrow, title, items, altWord, onOpen}){
+  const n = items.length;
+  const [idx,setIdx]=useState(0);
+  const pausedRef=useRef(false);
+  useEffect(()=>{ setIdx(0); },[n]);
+  useEffect(()=>{
+    if(n<=1) return;
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    const t=setInterval(()=>{ if(!pausedRef.current) setIdx(i=>(i+1)%n); }, 3800);
+    return ()=>clearInterval(t);
+  },[n]);
+  if(n===0) return null;
+  return (
+    <div className="sb reveal">
+      <div className="sb-head">
+        <span className="eyebrow">{eyebrow}</span>
+        <h2>{title}</h2>
+        <div className="ln-rule"></div>
+      </div>
+      <div className="sb-box"
+           onMouseEnter={()=>{pausedRef.current=true;}}
+           onMouseLeave={()=>{pausedRef.current=false;}}>
+        <div className="sb-track" style={{transform:"translateX(-"+(idx*100)+"%)"}}>
+          {items.map((p,i)=>(
+            <button className="sb-slide" key={i} type="button" onClick={()=>onOpen(p)} aria-label={"Enlarge: "+(p.cap||altWord)}>
+              <LNImg photo={p}/>
+              {p.cap && <span className="ln-cap">{p.cap}</span>}
+            </button>
+          ))}
+        </div>
+        {n>1 && (
+          <div className="sb-dots">
+            {items.map((_,i)=>(
+              <button key={i} className={"sb-dot"+(i===idx?" on":"")} type="button"
+                aria-label={"Show "+(i+1)+" of "+n} onClick={()=>setIdx(i)}></button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function HomeStrips(){
+  const [data,setData]=useState(null);
+  const [active,setActive]=useState(null);
   useEffect(()=>{
     let on=true;
-    const p = (window.DriveFeed ? window.DriveFeed.load() : Promise.resolve({latestNews:[]}));
-    p.then(d=>{ if(on) setItems(d.latestNews||[]); }).catch(()=>{ if(on) setItems([]); });
+    const p = (window.DriveFeed ? window.DriveFeed.load() : Promise.resolve({latestNews:[],researchHighlights:[]}));
+    p.then(d=>{ if(on) setData({latest:d.latestNews||[], research:d.researchHighlights||[]}); })
+     .catch(()=>{ if(on) setData({latest:[],research:[]}); });
     return ()=>{on=false;};
   },[]);
   useEffect(()=>{
@@ -695,32 +738,14 @@ function LatestNews(){
     document.body.style.overflow="hidden";
     return ()=>{ document.removeEventListener("keydown",onKey); document.body.style.overflow=""; };
   },[active]);
-  if(!items || items.length===0) return null;   // no images -> section hidden
-  const single = items.length===1;
-  // Repeat the set so the strip comfortably exceeds the viewport, then render
-  // it twice; the track scrolls exactly one group width (-50%) for a seamless loop.
-  const reps = Math.max(1, Math.ceil(8/items.length));
-  let group=[]; for(let r=0;r<reps;r++) group=group.concat(items);
-  const dur = Math.max(16, Math.round(group.length*4.2));
-  const card=(p,i)=>(
-    <button className="ln-card" key={i} type="button" onClick={()=>setActive(p)} aria-label={"Enlarge: "+(p.cap||"image")}>
-      <LNImg photo={p}/>
-      {p.cap && <span className="ln-cap">{p.cap}</span>}
-    </button>
-  );
+  if(!data) return null;
+  if(data.latest.length===0 && data.research.length===0) return null;
   return (
-    <section className="latest" id="latest" aria-label="Latest News">
+    <section className="strips" id="latest" aria-label="Latest News and Research Highlights">
       <div className="wrap">
-        <div className="latest-head reveal">
-          <span className="eyebrow">In focus</span>
-          <h2>Latest News</h2>
-          <div className="ln-rule"></div>
-        </div>
-      </div>
-      <div className="ln-viewport">
-        <div className={"ln-track"+(single?" still":"")} style={single?undefined:{animationDuration:dur+"s"}}>
-          <div className="ln-group">{group.map(card)}</div>
-          {!single && <div className="ln-group" aria-hidden="true">{group.map(card)}</div>}
+        <div className="strips-grid">
+          <SlideBox eyebrow="In focus" title="Latest News" items={data.latest} altWord="news image" onOpen={setActive}/>
+          <SlideBox eyebrow="Research & innovation" title="Research Highlights" items={data.research} altWord="research image" onOpen={setActive}/>
         </div>
       </div>
       {active && (
@@ -728,7 +753,7 @@ function LatestNews(){
           <button className="ln-close" type="button" aria-label="Close">&times;</button>
           <figure className="ln-figure" onClick={()=>setActive(null)}>
             {active.url
-              ? <img src={active.url} srcSet={active.srcset||undefined} sizes="92vw" alt={active.cap||"Latest news"} />
+              ? <img src={active.url} srcSet={active.srcset||undefined} sizes="92vw" alt={active.cap||"Image"} />
               : <div className="ln-ph ln-ph-big"><svg viewBox="0 0 120 120" preserveAspectRatio="none" aria-hidden="true"><rect width="120" height="120" fill="url(#lnw)"/></svg></div>}
             {active.cap && <figcaption>{active.cap}</figcaption>}
           </figure>
@@ -1055,7 +1080,7 @@ function App(){
         <Hero/>
         <Ticker/>
         <Stats/>
-        <LatestNews/>
+        <HomeStrips/>
         <div className="selvedge"></div>
         <About/>
         <Departments/>
