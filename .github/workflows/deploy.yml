@@ -54,6 +54,10 @@ jobs:
         if: ${{ env.GALLERY_DRIVE_API_KEY != '' }}
         run: python3 build_latestnews_from_drive.py
 
+      - name: Build Research Highlights from Google Drive (optional)
+        if: ${{ env.GALLERY_DRIVE_API_KEY != '' }}
+        run: python3 build_research_highlights_from_drive.py
+
       - name: Clear sample notices when Drive is not configured
         if: ${{ env.GALLERY_DRIVE_API_KEY == '' }}
         run: |
@@ -64,6 +68,9 @@ jobs:
           printf '%s\n' \
             '// No Drive key configured — Latest News intentionally empty.' \
             'window.LATEST_NEWS_DATA = [];' > latestnews-data.js
+          printf '%s\n' \
+            '// No Drive key configured — Research Highlights intentionally empty.' \
+            'window.RESEARCH_HIGHLIGHTS_DATA = [];' > research-highlights-data.js
 
       - name: Assemble site
         run: |
