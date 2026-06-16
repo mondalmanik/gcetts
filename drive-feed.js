@@ -61,21 +61,70 @@
     return sortDesc(files);
   }
 
+  function driveImg(id, w){ return "https://drive.google.com/thumbnail?id=" + id + "&sz=w" + (w||1000); }
+  function stripExt(n){ return (n||"").replace(/\.[^.\/]+$/, ""); }
+  var IMG_WIDTHS = [400,800,1200,1600];
+  function resolveImg(it, w){
+    if (typeof it === "string") return { url:it, srcset:null, cap:"" };
+    if (it.drive) return {
+      url: driveImg(it.drive, w||1200),
+      srcset: IMG_WIDTHS.map(function(x){ return driveImg(it.drive,x)+" "+x+"w"; }).join(", "),
+      cap: it.cap || ""
+    };
+    return { url: it.url, srcset: it.srcset||null, cap: it.cap||"" };
+  }
+  async function fetchImages(apiKey, fid){
+    var files = [], token = null;
+    do {
+      var p = new URLSearchParams({
+        q: "'" + fid + "' in parents and mimeType contains 'image/' and trashed = false",
+        key: apiKey, pageSize: "1000",
+        fields: "nextPageToken,files(id,name,modifiedTime)",
+        orderBy: "modifiedTime desc",
+        supportsAllDrives: "true", includeItemsFromAllDrives: "true"
+      });
+      if (token) p.set("pageToken", token);
+      var r = await fetch("https://www.googleapis.com/drive/v3/files?" + p.toString());
+      if (!r.ok) throw new Error("Drive API " + r.status);
+      var d = await r.json();
+      files = files.concat((d.files || []).map(function(f){ return { drive:f.id, cap:stripExt(f.name) }; }));
+      token = d.nextPageToken;
+    } while (token);
+    return files;
+  }
+
+  var _cache = null;
   window.DriveFeed = {
     folderId: folderId,
-    load: async function () {
-      var sNot = window.NOTICES_DATA, sTen = window.TENDERS_DATA, cfg = window.DRIVE_CONFIG;
-      if (Array.isArray(sNot) || Array.isArray(sTen)) {
-        return { notices: sortDesc(sNot || []), tenders: sortDesc(sTen || []), source: "static" };
-      }
-      if (cfg && cfg.apiKey && (cfg.noticesFolder || cfg.tendersFolder)) {
-        var res = await Promise.all([
-          cfg.noticesFolder ? fetchFolder(cfg.apiKey, folderId(cfg.noticesFolder)) : Promise.resolve([]),
-          cfg.tendersFolder ? fetchFolder(cfg.apiKey, folderId(cfg.tendersFolder)) : Promise.resolve([])
-        ]);
-        return { notices: res[0], tenders: res[1], source: "live" };
-      }
-      return { notices: [], tenders: [], source: "none" };
+    resolveImg: resolveImg,
+    load: function () {
+      if (_cache) return _cache;             // memoize: many callers, one fetch
+      _cache = (async function () {
+        var cfg = window.DRIVE_CONFIG || {};
+        var notices = [], tenders = [], source = "none";
+        var sNot = window.NOTICES_DATA, sTen = window.TENDERS_DATA;
+        if (Array.isArray(sNot) || Array.isArray(sTen)) {
+          notices = sortDesc(sNot || []); tenders = sortDesc(sTen || []); source = "static";
+        } else if (cfg.apiKey && (cfg.noticesFolder || cfg.tendersFolder)) {
+          var res = await Promise.all([
+            cfg.noticesFolder ? fetchFolder(cfg.apiKey, folderId(cfg.noticesFolder)) : Promise.resolve([]),
+            cfg.tendersFolder ? fetchFolder(cfg.apiKey, folderId(cfg.tendersFolder)) : Promise.resolve([])
+          ]);
+          notices = res[0]; tenders = res[1]; source = "live";
+        }
+        // Latest News images (caption = file name without extension)
+        var latestNews = [];
+        if (Array.isArray(window.LATEST_NEWS_DATA)) {
+          latestNews = window.LATEST_NEWS_DATA.map(function (x) { return resolveImg(x, 1200); });
+        } else if (cfg.apiKey && cfg.latestNewsFolder) {
+          try {
+            var imgs = await fetchImages(cfg.apiKey, folderId(cfg.latestNewsFolder));
+            latestNews = imgs.map(function (x) { return resolveImg(x, 1200); });
+          } catch (e) { latestNews = []; }
+        }
+        return { notices: notices, tenders: tenders, latestNews: latestNews, source: source };
+      })();
+      return _cache;
     }
   };
 })();

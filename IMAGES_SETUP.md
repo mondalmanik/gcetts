@@ -215,3 +215,43 @@ live in the browser.
   never shows on a real site), and
 - runs on a **6-hourly schedule** so new notices/tenders go live automatically
   without a code push.
+
+---
+
+## 7. Latest News carousel (homepage)
+
+The homepage shows an auto-scrolling **"Latest News"** band of images pulled from
+a single Drive folder. Each image's caption is its **file name without the
+extension** — so naming a file `Convocation 2025.jpg` shows "Convocation 2025"
+on the image.
+
+Files involved:
+- `drive-feed.js` — shared loader (already used for notices); now also resolves
+  the Latest News images
+- `latestnews-data.js` — the generated data (ships with clearly-labelled SAMPLE
+  tiles; replaced by the build step below)
+- `build_latestnews_from_drive.py` — generates `latestnews-data.js` from Drive
+
+### Generate from Drive
+1. Put your image folder in `build_latestnews_from_drive.py`
+   (`LATEST_NEWS_FOLDER`) — shared *Anyone with link: Viewer*.
+2. Provide the key: `export DRIVE_API_KEY=xxxx` (or reuse the same
+   `GALLERY_DRIVE_API_KEY` secret in CI).
+3. Run:
+
+        python3 build_latestnews_from_drive.py
+
+   -> writes `latestnews-data.js`, images newest-first, captions from filenames.
+
+### Behaviour
+- The band auto-scrolls, pauses on hover, fades at both edges, and respects
+  "reduce motion" (becomes a normal horizontal scroll).
+- If the folder is empty (or no data file), the **entire section is hidden**.
+- Optional live mode: add `latestNewsFolder` to `window.DRIVE_CONFIG` in
+  `drive-config.js` to fetch in the browser without rebuilds.
+
+### CI behaviour
+`.github/workflows/deploy.yml` now also runs `build_latestnews_from_drive.py`
+when the Drive key secret is set, and **empties** `latestnews-data.js` on deploy
+when no key is set (so the sample never shows on a real site). The existing
+6-hourly schedule keeps it fresh.
