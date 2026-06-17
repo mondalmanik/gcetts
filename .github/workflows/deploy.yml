@@ -15,6 +15,12 @@ permissions:
   pages: write
   id-token: write
 
+# Force all JavaScript actions (including ones bundled inside composite actions
+# such as upload-pages-artifact) onto Node.js 24, clearing the Node 20
+# deprecation warning until every action ships a Node 24 major.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 # Allow one concurrent deployment; don't cancel an in-progress one.
 concurrency:
   group: pages
@@ -29,10 +35,10 @@ jobs:
       GALLERY_DRIVE_API_KEY: ${{ secrets.GALLERY_DRIVE_API_KEY }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
