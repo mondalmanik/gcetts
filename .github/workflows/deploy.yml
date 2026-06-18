@@ -42,8 +42,15 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install dependencies
-        run: pip install pillow
+        run: |
+          pip install pillow
+          npm install @babel/standalone@7.26.7 --no-save --no-audit --no-fund
 
       - name: Generate responsive image variants
         run: python3 optimize_images.py
@@ -64,6 +71,10 @@ jobs:
         if: ${{ env.GALLERY_DRIVE_API_KEY != '' }}
         run: python3 build_research_highlights_from_drive.py
 
+      - name: Build AICTE EOA reports list from Google Drive (optional)
+        if: ${{ env.GALLERY_DRIVE_API_KEY != '' }}
+        run: python3 build_aicte_from_drive.py
+
       - name: Clear sample notices when Drive is not configured
         if: ${{ env.GALLERY_DRIVE_API_KEY == '' }}
         run: |
@@ -77,16 +88,29 @@ jobs:
           printf '%s\n' \
             '// No Drive key configured — Research Highlights intentionally empty.' \
             'window.RESEARCH_HIGHLIGHTS_DATA = [];' > research-highlights-data.js
+          printf '%s\n' \
+            '// No Drive key configured — AICTE EOA list intentionally empty.' \
+            'window.AICTE_DATA = [];' > aicte-data.js
 
       - name: Assemble site
         run: |
           mkdir -p _site
+          # Pre-compile each page's inline JSX to plain JS into _site/ (no Babel
+          # is shipped to visitors). Source HTML stays as editable JSX.
+          node precompile.js . _site
+          # Copy all other assets (JS data, images, CSS, etc.) WITHOUT the source
+          # HTML (already compiled above) or build-only files.
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='_site' \
+            --exclude='node_modules' \
+            --exclude='*.html' \
             --exclude='*.py' \
             --exclude='*.sh' \
+            --exclude='precompile.js' \
+            --exclude='package.json' \
+            --exclude='package-lock.json' \
             --exclude='IMAGES_SETUP.md' \
             --exclude='faculty_photos_manifest.csv' \
             --exclude='faculty-photo-filenames.txt' \
