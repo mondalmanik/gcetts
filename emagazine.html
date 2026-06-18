@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Contact · GCETTS — Government College of Engineering &amp; Textile Technology, Serampore</title>
-<meta name="description" content="Contact Government College of Engineering and Textile Technology, Serampore (GCETTS) — address, phone, email, admissions enquiry and location map." />
+<title>E-magazine · Sound of Soul · GCETTS — Government College of Engineering &amp; Textile Technology, Serampore</title>
+<meta name="description" content="Sound of Soul — the cultural e-magazine of Government College of Engineering and Textile Technology, Serampore (GCETTS). Read the latest and past issues." />
 
 <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -34,7 +34,6 @@ ul{list-style:none}
 .eyebrow.on-dark{color:var(--gold)}
 .skip{position:absolute;left:-999px;top:0;z-index:200;background:var(--ink);color:#fff;padding:12px 18px;border-radius:0 0 8px 0}
 .skip:focus{left:0}
-/* header/footer shared */
 .topbar{background:var(--indigo-950);color:#cfd8ea;font-size:.78rem}
 .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px;min-height:38px;flex-wrap:wrap}
 .topbar .tb-left{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
@@ -79,45 +78,44 @@ ul{list-style:none}
 .acc-btn{display:flex;width:100%;justify-content:space-between;align-items:center;padding:13px 6px;font-weight:600;background:none;border:none;border-bottom:1px solid var(--line);font-family:inherit;font-size:1rem;color:var(--ink);cursor:pointer}
 .acc-btn span{font-family:'Spline Sans Mono',monospace;color:var(--gold-deep);font-size:1.2rem;width:20px;text-align:center}
 /* hero */
-.chero{position:relative;background:var(--indigo-900);color:#fff;overflow:hidden;padding:54px 0 56px}
-.chero .weave-bg{position:absolute;inset:0;opacity:.42}
-.chero .glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(216,163,59,.18),transparent 65%);top:-210px;right:-110px}
-.chero .wrap{position:relative}
+.ehero{position:relative;background:var(--indigo-900);color:#fff;overflow:hidden;padding:54px 0 58px}
+.ehero .weave-bg{position:absolute;inset:0;opacity:.42}
+.ehero .glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(216,163,59,.18),transparent 65%);top:-210px;right:-110px}
+.ehero .wrap{position:relative}
 .crumb{font-family:'Spline Sans Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#9fb0d0;margin-bottom:14px}
 .crumb a:hover{color:var(--gold)}
-.chero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.2rem,5.4vw,3.5rem);line-height:1.04;letter-spacing:-.02em}
-.chero h1 em{font-style:italic;color:var(--gold)}
-.chero p{color:#c7d2e8;max-width:56ch;margin-top:14px;font-size:1.04rem}
-/* body */
-.cbody{padding:54px 0 70px}
-.cgrid{display:grid;gap:34px}
-@media(min-width:920px){.cgrid{grid-template-columns:1fr 1fr;align-items:start}}
-.sec-h{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;color:var(--indigo-900);margin-bottom:6px}
-.sec-sub{color:var(--ink-soft);margin-bottom:22px;font-size:.98rem}
-.ci-list{display:flex;flex-direction:column;gap:2px}
-.ci-row{display:flex;gap:15px;padding:16px 0;border-bottom:1px solid var(--line)}
-.ci-row:last-child{border-bottom:none}
-.ci-ico{width:44px;height:44px;border-radius:11px;background:var(--indigo-900);color:var(--gold);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
-.ci-k{font-family:'Spline Sans Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
-.ci-v{font-size:1rem;color:var(--ink);font-weight:600;margin-top:3px;line-height:1.4}
-.ci-v a:hover{color:var(--gold-deep)}
-.map-frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:26px}
-.map-frame iframe{width:100%;height:300px;border:0;display:block}
-/* form */
-.form-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px}
-.field{margin-bottom:16px}
-.field label{display:block;font-size:.78rem;font-weight:600;color:var(--ink-soft);margin-bottom:6px;font-family:'Spline Sans Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
-.field input,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:inherit;font-size:.95rem;color:var(--ink);background:var(--paper);resize:vertical}
-.field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);background:#fff}
-.row2{display:grid;gap:16px}
-@media(min-width:520px){.row2{grid-template-columns:1fr 1fr}}
-.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:999px;font-weight:700;font-size:.92rem;transition:transform .2s,background .2s;cursor:pointer;border:none}
-.btn-gold{background:var(--gold);color:var(--indigo-950)}
-.btn-gold:hover{transform:translateY(-2px);background:#e6b34d}
-.form-note{font-size:.78rem;color:var(--ink-soft);margin-top:12px}
-.alt{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font-size:.9rem;color:var(--ink-soft)}
-.alt a{color:var(--indigo-800);font-weight:700}
-.alt a:hover{color:var(--gold-deep)}
+.ehero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.2rem,5.4vw,3.6rem);line-height:1.04;letter-spacing:-.02em}
+.ehero h1 em{font-style:italic;color:var(--gold)}
+.ehero p{color:#c7d2e8;max-width:60ch;margin-top:16px;font-size:1.06rem}
+/* section */
+.mags{padding:58px 0 70px}
+.sec-head{max-width:60ch;margin-bottom:34px}
+.sec-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.2rem);color:var(--indigo-900);margin-top:10px;letter-spacing:-.01em}
+.sec-head p{color:var(--ink-soft);margin-top:12px}
+/* issue grid of magazine covers */
+.issue-grid{display:grid;gap:24px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:620px){.issue-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:980px){.issue-grid{grid-template-columns:repeat(5,1fr)}}
+.cover{position:relative;display:block;aspect-ratio:3/4;border-radius:14px;overflow:hidden;background:linear-gradient(160deg,var(--indigo-800),var(--indigo-950));box-shadow:0 18px 38px -22px rgba(20,35,63,.6);transition:transform .25s,box-shadow .25s}
+.cover:hover{transform:translateY(-6px);box-shadow:0 28px 54px -24px rgba(20,35,63,.7)}
+.cover .cv-weave{position:absolute;inset:0;opacity:.5}
+.cover .cv-spine{position:absolute;top:0;bottom:0;left:0;width:8px;background:linear-gradient(var(--gold),var(--gold-deep))}
+.cover .cv-inner{position:absolute;inset:0;display:flex;flex-direction:column;padding:18px 16px 16px 20px}
+.cv-kicker{font-family:'Spline Sans Mono',monospace;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.cv-title{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:1.5rem;line-height:1.05;color:#fff;margin-top:auto}
+.cv-rule{height:2px;width:34px;background:var(--gold);margin:10px 0;border-radius:2px}
+.cv-year{font-family:'Spline Sans Mono',monospace;font-size:.84rem;color:#cdd8ee;letter-spacing:.06em}
+.cv-read{margin-top:12px;display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;color:var(--indigo-950);background:var(--gold);align-self:flex-start;padding:7px 13px;border-radius:999px;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s}
+.cover:hover .cv-read,.cover:focus-visible .cv-read{opacity:1;transform:none}
+.cv-badge{position:absolute;top:12px;right:12px;font-family:'Spline Sans Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--indigo-950);background:var(--gold);padding:3px 9px;border-radius:999px}
+@media(max-width:980px){.cv-read{opacity:1;transform:none}}
+/* note strip */
+.note{background:var(--ecru);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-top:42px;display:flex;gap:16px;align-items:flex-start}
+.note .ni{width:42px;height:42px;border-radius:11px;background:var(--indigo-900);color:var(--gold);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.note p{color:var(--ink-soft);font-size:.95rem}
+.note b{color:var(--indigo-900);font-family:'Fraunces',serif}
+.note a{color:var(--indigo-800);font-weight:700}
+.note a:hover{color:var(--gold-deep)}
 /* footer */
 .footer{background:var(--indigo-950);color:#aebbd6;padding:60px 0 0}
 .foot-top{display:grid;gap:34px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1)}
@@ -138,6 +136,15 @@ ul{list-style:none}
 <script type="text/babel" data-presets="react">
 const { useState, useEffect } = React;
 
+/* Sound of Soul issues — newest first. Real Drive links from the institute. */
+const ISSUES = [
+  { year:"2026", url:"https://drive.google.com/file/d/16Xx8rlCMhTdYSMS56FLs8Rbi7Noitg_m/view?usp=drive_link" },
+  { year:"2025", url:"https://drive.google.com/file/d/11Veh0I-h15Zqw-LFXsaxZiouE_MC3qF2/view?usp=sharing" },
+  { year:"2024", url:"https://drive.google.com/file/d/1-8jDmE-q2MjBqZ1hZB_L8anql8cAFeUp/view?usp=drivesdk" },
+  { year:"2023", url:"https://drive.google.com/file/d/1SuSNKABU55Gki4iaAJeKDMUyNYrjglBK/view?usp=drive_link" },
+  { year:"2022", url:"https://drive.google.com/file/d/1gibX7zFGoTNnT708H8xkUMLY2de8O5dY/view?usp=sharing" },
+];
+
 const DEPT_LINKS = [
   { label:"Computer Science & Engg. (CSE)", href:"departments.html?d=cse" },
   { label:"Information Technology (IT)", href:"departments.html?d=it" },
@@ -148,8 +155,8 @@ const DEPT_LINKS = [
 const MORE_LINKS = [
   { label:"Notices & Tenders", href:"notices.html" },
   { label:"Research News", href:"research.html" },
+  { label:"E-magazine", href:"emagazine.html" },
   { label:"Grievance Redressal", href:"https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform", ext:true },
-  { label:"E-magazine", href:"emagazine.html", ext:true },
   { label:"AICTE EOA Reports", href:"aicte.html" },
   { label:"Anti Ragging", href:"https://drive.google.com/file/d/1KWXbm0YFWtOaYugpUSLzTMPNDcxwK43V/view?usp=sharing", ext:true },
   { label:"NIRF", href:"https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing", ext:true },
@@ -157,10 +164,8 @@ const MORE_LINKS = [
 const Ico={
   mail:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" strokeWidth="2"/></svg>,
   phone:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-3 2a12 12 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg>,
-  pin:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.7 7-11a7 7 0 10-14 0c0 5.3 7 11 7 11z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="2"/></svg>,
-  globe:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18" stroke="currentColor" strokeWidth="2"/></svg>,
-  user:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>,
-  send:()=><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  open:()=><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  pen:()=><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L20 8a2 2 0 00-3-3L5 17v3z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/><path d="M14 6l4 4" stroke="currentColor" strokeWidth="1.8"/></svg>,
 };
 function Crest(){return(
   <svg className="crest" viewBox="0 0 64 64" aria-hidden="true">
@@ -169,12 +174,12 @@ function Crest(){return(
     <g stroke="#D8A33B" strokeWidth="1.8"><path d="M14 28h36M14 36h36"/></g>
     <path d="M32 12l3 5h-6l3-5z" fill="#D8A33B"/>
   </svg>);}
-function Weave({opacity}){return(
+function Weave({opacity, id}){return(
   <svg className="weave-bg" preserveAspectRatio="none" viewBox="0 0 800 600" aria-hidden="true" style={{opacity}}>
-    <defs><pattern id="cw" width="40" height="40" patternUnits="userSpaceOnUse">
+    <defs><pattern id={id||"ew"} width="40" height="40" patternUnits="userSpaceOnUse">
       <path d="M0 0 H40 M0 13 H40 M0 26 H40" stroke="rgba(110,139,190,.5)" strokeWidth="1"/>
       <path d="M0 0 V40 M13 0 V40 M26 0 V40" stroke="rgba(216,163,59,.28)" strokeWidth="1"/>
-    </pattern></defs><rect width="800" height="600" fill="url(#cw)"/>
+    </pattern></defs><rect width="800" height="600" fill={"url(#"+(id||"ew")+")"}/>
   </svg>);}
 function BrandLogos(){return(
   <a className="brand" href="index.html" aria-label="GCETTS home">
@@ -214,11 +219,11 @@ function Header(){
             <Dropdown label="Departments" items={DEPT_LINKS}/>
             <a href="faculty.html">Faculty</a>
             <a href="gallery.html">Gallery</a>
-            <a href="notices.html">Notices</a>
+            <a href="emagazine.html" className="active">E-magazine</a>
             <Dropdown label="More" items={MORE_LINKS}/>
-            <a href="contact.html" className="active">Contact</a>
+            <a href="contact.html">Contact</a>
           </div>
-          <a className="nav-cta" href="#contactform">Send a message</a>
+          <a className="nav-cta" href={ISSUES[0].url} target="_blank" rel="noopener">Latest issue</a>
           <button className={"burger"+(open?" open":"")} aria-label="Toggle menu" aria-expanded={open} onClick={()=>setOpen(!open)}><span></span><span></span><span></span></button>
         </nav>
       </div>
@@ -230,7 +235,7 @@ function Header(){
           {acc==='dept' && <li className="sub">{DEPT_LINKS.map(d=><a key={d.label} href={d.href}>{d.label}</a>)}</li>}
           <li><a href="faculty.html">Faculty</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="notices.html">Notices &amp; Tenders</a></li>
+          <li><a href="emagazine.html">E-magazine</a></li>
           <li><button className="acc-btn" aria-expanded={acc==='more'} onClick={()=>tog('more')}>More <span>{acc==='more'?'–':'+'}</span></button></li>
           {acc==='more' && <li className="sub">{MORE_LINKS.map(m=><a key={m.label} href={m.href} target={m.ext?"_blank":undefined} rel={m.ext?"noopener":undefined}>{m.label}</a>)}</li>}
           <li><a href="contact.html">Contact</a></li>
@@ -259,11 +264,11 @@ function Footer(){return(
         <a href="gallery.html">Gallery</a>
         <a href="research.html">Research News</a>
       </div>
-      <div className="foot-col"><h4>Reach us</h4>
+      <div className="foot-col"><h4>Resources</h4>
+        <a href="emagazine.html">E-magazine</a>
         <a href="notices.html">Notices &amp; Tenders</a>
+        <a href="https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing" target="_blank" rel="noopener">NIRF</a>
         <a href="contact.html">Contact</a>
-        <a href="mailto:info@gcetts.ac.in">info@gcetts.ac.in</a>
-        <a href="tel:+9103326621058">(033) 2662-1058</a>
       </div>
     </div>
     <div className="foot-bottom">
@@ -272,41 +277,20 @@ function Footer(){return(
     </div>
   </div></footer>);}
 
-function ContactForm(){
-  const [f,setF]=useState({name:"",email:"",subject:"",message:""});
-  const on=(k)=>(e)=>setF({...f,[k]:e.target.value});
-  const submit=(e)=>{
-    e.preventDefault();
-    const subject=encodeURIComponent(f.subject||("Website enquiry from "+(f.name||"visitor")));
-    const body=encodeURIComponent("Name: "+f.name+"\nEmail: "+f.email+"\n\n"+f.message);
-    window.location.href="mailto:info@gcetts.ac.in?subject="+subject+"&body="+body;
-  };
+function Cover({issue, latest}){
   return (
-    <form className="form-card reveal" id="contactform" onSubmit={submit}>
-      <div className="row2">
-        <div className="field">
-          <label htmlFor="cn">Your name</label>
-          <input id="cn" type="text" required value={f.name} onChange={on("name")} placeholder="Full name" />
-        </div>
-        <div className="field">
-          <label htmlFor="ce">Email</label>
-          <input id="ce" type="email" required value={f.email} onChange={on("email")} placeholder="you@example.com" />
-        </div>
-      </div>
-      <div className="field">
-        <label htmlFor="cs">Subject</label>
-        <input id="cs" type="text" value={f.subject} onChange={on("subject")} placeholder="What is this about?" />
-      </div>
-      <div className="field">
-        <label htmlFor="cm">Message</label>
-        <textarea id="cm" rows="5" required value={f.message} onChange={on("message")} placeholder="Write your message…"></textarea>
-      </div>
-      <button className="btn btn-gold" type="submit">{Ico.send()} Send message</button>
-      <p className="form-note">This opens your email app with the message ready to send to info@gcetts.ac.in.</p>
-      <div className="alt">
-        For formal complaints, please use the <a href="https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform" target="_blank" rel="noopener">Grievance Redressal form ↗</a>.
-      </div>
-    </form>
+    <a className="cover" href={issue.url} target="_blank" rel="noopener" aria-label={"Read Sound of Soul, Issue "+issue.year}>
+      <Weave opacity={.5} id={"cw"+issue.year}/>
+      <span className="cv-spine"></span>
+      {latest && <span className="cv-badge">Latest</span>}
+      <span className="cv-inner">
+        <span className="cv-kicker">GCETTS · Cultural</span>
+        <span className="cv-title">Sound<br/>of Soul</span>
+        <span className="cv-rule"></span>
+        <span className="cv-year">Issue · {issue.year}</span>
+        <span className="cv-read">{Ico.open()} Read</span>
+      </span>
+    </a>
   );
 }
 
@@ -317,64 +301,34 @@ function App(){
     const io=new IntersectionObserver(en=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.06});
     els.forEach(e=>io.observe(e));return ()=>io.disconnect();
   },[]);
-  const map="https://maps-api-ssl.google.com/maps?hl=en-US&ll=22.750877,88.35267&output=embed&q=12,+William+Carey+Sarani,+Serampore,+Hooghly,+West+Bengal+712201,+India+(Government+College+of+Engineering+and+Textile+Technology+-+Serampore)&z=18";
   return (
     <React.Fragment>
       <a className="skip" href="#main">Skip to content</a>
       <Header/>
-      <section className="chero">
-        <Weave opacity={.4}/><div className="glow"></div>
+      <section className="ehero">
+        <Weave opacity={.4} id="eheroW"/><div className="glow"></div>
         <div className="wrap">
-          <div className="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Contact</div>
-          <span className="eyebrow on-dark">Get in touch</span>
-          <h1>Contact <em>GCETTS</em>.</h1>
-          <p>Questions about admissions, academics or the institute? Reach us by phone or email, drop by the campus on the banks of the Ganga, or send a message below.</p>
+          <div className="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; E-magazine</div>
+          <span className="eyebrow on-dark">E-magazine</span>
+          <h1><em>Sound of Soul</em>.</h1>
+          <p>The cultural canvas of GCETTS — a space where students and faculty paint, write, portray and share their creative voice. Browse the latest and past issues below.</p>
         </div>
       </section>
 
-      <main className="cbody" id="main">
+      <main className="mags" id="main">
         <div className="wrap">
-          <div className="cgrid">
-            <div className="reveal">
-              <h2 className="sec-h">Reach us</h2>
-              <p className="sec-sub">Office hours are observed on all working days as per the institute calendar.</p>
-              <div className="ci-list">
-                <div className="ci-row">
-                  <div className="ci-ico">{Ico.pin()}</div>
-                  <div><div className="ci-k">Address</div>
-                    <div className="ci-v">Govt. College of Engineering &amp; Textile Technology<br/>12, William Carey Road, Serampore, Dist. Hooghly<br/>West Bengal — PIN 712201, India (beside the Ganga)</div></div>
-                </div>
-                <div className="ci-row">
-                  <div className="ci-ico">{Ico.phone()}</div>
-                  <div><div className="ci-k">Telephone</div>
-                    <div className="ci-v"><a href="tel:+9103326621058">+91 (033) 2662-1058</a>, 3156<br/><span style={{fontWeight:400,fontSize:".85rem",color:"var(--ink-soft)"}}>Fax: +91 (033) 2662-1058</span></div></div>
-                </div>
-                <div className="ci-row">
-                  <div className="ci-ico">{Ico.mail()}</div>
-                  <div><div className="ci-k">Email</div>
-                    <div className="ci-v"><a href="mailto:info@gcetts.ac.in">info@gcetts.ac.in</a></div></div>
-                </div>
-                <div className="ci-row">
-                  <div className="ci-ico">{Ico.user()}</div>
-                  <div><div className="ci-k">Admissions enquiry</div>
-                    <div className="ci-v">Prof. (Dr.) S. S. Mahish · <a href="tel:+917890195116">+91 78901 95116</a></div></div>
-                </div>
-                <div className="ci-row">
-                  <div className="ci-ico">{Ico.globe()}</div>
-                  <div><div className="ci-k">Website</div>
-                    <div className="ci-v"><a href="https://www.gcetts.ac.in" target="_blank" rel="noopener">www.gcetts.ac.in</a></div></div>
-                </div>
-              </div>
-              <div className="map-frame">
-                <iframe src={map} title="GCETTS location map" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-              </div>
-            </div>
+          <div className="sec-head reveal">
+            <span className="eyebrow">Issues</span>
+            <h2>Read the magazine</h2>
+            <p>Each issue opens as a PDF. Newest first.</p>
+          </div>
+          <div className="issue-grid">
+            {ISSUES.map((it,i)=><Cover key={it.year} issue={it} latest={i===0}/>)}
+          </div>
 
-            <div>
-              <h2 className="sec-h">Send a message</h2>
-              <p className="sec-sub">We'll get back to you at the email you provide.</p>
-              <ContactForm/>
-            </div>
+          <div className="note reveal">
+            <span className="ni">{Ico.pen()}</span>
+            <p><b>Want to contribute?</b> Sound of Soul welcomes writing, art and photography from the GCETTS community. Reach the editorial team through the college office at <a href="mailto:info@gcetts.ac.in">info@gcetts.ac.in</a>.</p>
           </div>
         </div>
       </main>

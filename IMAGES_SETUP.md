@@ -291,3 +291,56 @@ in `drive-config.js` to fetch live in the browser without rebuilds.
 is set, and empties both `latestnews-data.js` and `research-highlights-data.js` on
 deploy when no key is set (so samples never show on a real site). The 6-hourly
 schedule keeps them fresh.
+
+---
+
+## 9. Ahead-of-time JSX compile (no Babel in the browser)
+
+Pages are written with an editable inline `<script type="text/babel">` so you can
+open and preview any `.html` file directly. For the **deployed** site, CI now
+compiles that JSX to plain JavaScript so visitors never download or run Babel
+(faster, and immune to CDN/Babel version changes blanking the page).
+
+- `precompile.js` — Node script: for each page it compiles the inline JSX to
+  `React.createElement(...)`, removes the `@babel/standalone` `<script>`, keeps
+  React/ReactDOM, and writes the production copy into `_site/`. **Source files
+  are not modified.**
+- The deploy workflow runs `npm install @babel/standalone` then
+  `node precompile.js . _site`, and the asset copy step now excludes `*.html`
+  (the compiled copies already live in `_site`).
+
+Run it locally to preview the production output:
+
+    npm install @babel/standalone@7.26.7
+    node precompile.js . dist
+    # open dist/index.html — it has no Babel and runs the compiled JS
+
+Editing stays the same: change the JSX in the source `.html` files; CI compiles
+on deploy.
+
+---
+
+## 10. AICTE EOA Reports page (auto-listing a Drive folder)
+
+`aicte.html` lists the institute's **AICTE EOA Reports** Drive folder. Any file
+(or sub-folder) added to that folder appears on the page automatically — no code
+change needed.
+
+Files involved:
+- `drive-feed.js` — shared loader (now also resolves the AICTE folder)
+- `aicte-data.js` — generated data (ships with a clearly-labelled sample)
+- `build_aicte_from_drive.py` — lists the folder into `aicte-data.js`
+
+### How auto-update works
+- The folder id is already set in `build_aicte_from_drive.py` (the institute's
+  public AICTE EOA folder). With the `GALLERY_DRIVE_API_KEY` secret set, CI runs
+  the builder on every push **and on the 6-hourly schedule**, so newly uploaded
+  EOA letters show up within a few hours with no edits.
+- For instant updates, enable live mode: in `drive-config.js` set
+  `window.DRIVE_CONFIG = { apiKey:"…", aicteFolder:"…folder url/id…" }`.
+- Items are newest-first; sub-folders (e.g., year folders) are shown too and open
+  in Drive. The empty state links straight to the folder.
+
+### CI behaviour
+The deploy workflow builds `aicte-data.js` from Drive when the key is set, and
+empties it when no key is set (so the sample never shows on a live site).

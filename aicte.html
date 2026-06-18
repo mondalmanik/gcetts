@@ -3,12 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Contact · GCETTS — Government College of Engineering &amp; Textile Technology, Serampore</title>
-<meta name="description" content="Contact Government College of Engineering and Textile Technology, Serampore (GCETTS) — address, phone, email, admissions enquiry and location map." />
+<title>AICTE EOA Reports · GCETTS — Government College of Engineering &amp; Textile Technology, Serampore</title>
+<meta name="description" content="AICTE Extension of Approval (EOA) reports for Government College of Engineering and Textile Technology, Serampore (GCETTS)." />
 
 <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.26.7/babel.min.js"></script>
+
+<script src="drive-feed.js"></script>
+<script src="aicte-data.js"></script>
+<!-- Optional live mode: drive-config.js may define window.DRIVE_CONFIG = {apiKey, aicteFolder} -->
+<script src="drive-config.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,7 +39,6 @@ ul{list-style:none}
 .eyebrow.on-dark{color:var(--gold)}
 .skip{position:absolute;left:-999px;top:0;z-index:200;background:var(--ink);color:#fff;padding:12px 18px;border-radius:0 0 8px 0}
 .skip:focus{left:0}
-/* header/footer shared */
 .topbar{background:var(--indigo-950);color:#cfd8ea;font-size:.78rem}
 .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px;min-height:38px;flex-wrap:wrap}
 .topbar .tb-left{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
@@ -79,45 +83,51 @@ ul{list-style:none}
 .acc-btn{display:flex;width:100%;justify-content:space-between;align-items:center;padding:13px 6px;font-weight:600;background:none;border:none;border-bottom:1px solid var(--line);font-family:inherit;font-size:1rem;color:var(--ink);cursor:pointer}
 .acc-btn span{font-family:'Spline Sans Mono',monospace;color:var(--gold-deep);font-size:1.2rem;width:20px;text-align:center}
 /* hero */
-.chero{position:relative;background:var(--indigo-900);color:#fff;overflow:hidden;padding:54px 0 56px}
-.chero .weave-bg{position:absolute;inset:0;opacity:.42}
-.chero .glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(216,163,59,.18),transparent 65%);top:-210px;right:-110px}
-.chero .wrap{position:relative}
+.ahero{position:relative;background:var(--indigo-900);color:#fff;overflow:hidden;padding:54px 0 56px}
+.ahero .weave-bg{position:absolute;inset:0;opacity:.42}
+.ahero .glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(216,163,59,.18),transparent 65%);top:-210px;right:-110px}
+.ahero .wrap{position:relative}
 .crumb{font-family:'Spline Sans Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#9fb0d0;margin-bottom:14px}
 .crumb a:hover{color:var(--gold)}
-.chero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.2rem,5.4vw,3.5rem);line-height:1.04;letter-spacing:-.02em}
-.chero h1 em{font-style:italic;color:var(--gold)}
-.chero p{color:#c7d2e8;max-width:56ch;margin-top:14px;font-size:1.04rem}
-/* body */
-.cbody{padding:54px 0 70px}
-.cgrid{display:grid;gap:34px}
-@media(min-width:920px){.cgrid{grid-template-columns:1fr 1fr;align-items:start}}
-.sec-h{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;color:var(--indigo-900);margin-bottom:6px}
-.sec-sub{color:var(--ink-soft);margin-bottom:22px;font-size:.98rem}
-.ci-list{display:flex;flex-direction:column;gap:2px}
-.ci-row{display:flex;gap:15px;padding:16px 0;border-bottom:1px solid var(--line)}
-.ci-row:last-child{border-bottom:none}
-.ci-ico{width:44px;height:44px;border-radius:11px;background:var(--indigo-900);color:var(--gold);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
-.ci-k{font-family:'Spline Sans Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
-.ci-v{font-size:1rem;color:var(--ink);font-weight:600;margin-top:3px;line-height:1.4}
-.ci-v a:hover{color:var(--gold-deep)}
-.map-frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:26px}
-.map-frame iframe{width:100%;height:300px;border:0;display:block}
-/* form */
-.form-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px}
-.field{margin-bottom:16px}
-.field label{display:block;font-size:.78rem;font-weight:600;color:var(--ink-soft);margin-bottom:6px;font-family:'Spline Sans Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
-.field input,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:inherit;font-size:.95rem;color:var(--ink);background:var(--paper);resize:vertical}
-.field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);background:#fff}
-.row2{display:grid;gap:16px}
-@media(min-width:520px){.row2{grid-template-columns:1fr 1fr}}
-.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:999px;font-weight:700;font-size:.92rem;transition:transform .2s,background .2s;cursor:pointer;border:none}
-.btn-gold{background:var(--gold);color:var(--indigo-950)}
-.btn-gold:hover{transform:translateY(-2px);background:#e6b34d}
-.form-note{font-size:.78rem;color:var(--ink-soft);margin-top:12px}
-.alt{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font-size:.9rem;color:var(--ink-soft)}
-.alt a{color:var(--indigo-800);font-weight:700}
-.alt a:hover{color:var(--gold-deep)}
+.ahero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.04;letter-spacing:-.02em}
+.ahero h1 em{font-style:italic;color:var(--gold)}
+.ahero p{color:#c7d2e8;max-width:60ch;margin-top:14px;font-size:1.04rem}
+/* toolbar */
+.toolbar{position:sticky;top:74px;z-index:40;background:rgba(251,249,244,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 0}
+.toolbar .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.count{font-family:'Spline Sans Mono',monospace;font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em}
+.count b{color:var(--indigo-800)}
+.search{position:relative;flex:1;min-width:200px;max-width:360px}
+.search input{width:100%;padding:11px 14px 11px 40px;border:1px solid var(--line);border-radius:999px;background:#fff;font-family:inherit;font-size:.92rem;color:var(--ink)}
+.search input:focus{outline:none;border-color:var(--gold)}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink-soft)}
+/* feed */
+.feed{padding:34px 0 70px}
+.feed-list{display:flex;flex-direction:column;gap:10px}
+.frow{display:flex;gap:15px;align-items:center;padding:15px 18px;border:1px solid var(--line);border-radius:14px;background:#fff;transition:transform .2s,border-color .2s,box-shadow .2s}
+.frow:hover{transform:translateX(3px);border-color:var(--gold);box-shadow:0 14px 30px -20px rgba(20,35,63,.4)}
+.ficon{width:46px;height:46px;border-radius:11px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Spline Sans Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.04em}
+.k-pdf{background:linear-gradient(145deg,#B23A2E,#8E2A20)}
+.k-doc{background:linear-gradient(145deg,#2C4878,#1B2E50)}
+.k-sheet{background:linear-gradient(145deg,#1E7A53,#13573A)}
+.k-slide{background:linear-gradient(145deg,#C97A1E,#9C5C12)}
+.k-image{background:linear-gradient(145deg,#6E5AA8,#4E3F7F)}
+.k-folder{background:linear-gradient(145deg,#B9842A,#8c631d)}
+.k-file{background:linear-gradient(145deg,#5A574E,#3C3A34)}
+.fmeta{flex:1;min-width:0}
+.fmeta .t{font-weight:600;color:var(--indigo-900);font-size:1rem;line-height:1.25;display:block;overflow-wrap:anywhere}
+.fmeta .d{font-family:'Spline Sans Mono',monospace;font-size:.7rem;color:var(--ink-soft);margin-top:4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.newbadge{font-family:'Spline Sans Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--gold-deep);background:rgba(216,163,59,.16);padding:2px 7px;border-radius:999px}
+.fopen{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;background:var(--ecru);border:1px solid var(--line);color:var(--indigo-800);font-weight:700;font-size:.82rem;padding:9px 15px;border-radius:999px;transition:.2s}
+.fopen:hover{background:var(--gold);border-color:var(--gold);color:var(--indigo-950)}
+@media(max-width:560px){.fopen span{display:none}.fopen{padding:10px}}
+.state{text-align:center;padding:60px 20px;color:var(--ink-soft)}
+.state .ic{width:64px;height:64px;border-radius:18px;background:var(--ecru);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.state b{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--indigo-900);display:block;margin-bottom:6px}
+.state a{color:var(--indigo-800);font-weight:700}
+.skel{height:76px;border-radius:14px;background:linear-gradient(90deg,#efeadd 25%,#f6f2e8 37%,#efeadd 63%);background-size:400% 100%;animation:sh 1.3s ease infinite}
+@keyframes sh{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}}
 /* footer */
 .footer{background:var(--indigo-950);color:#aebbd6;padding:60px 0 0}
 .foot-top{display:grid;gap:34px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1)}
@@ -128,15 +138,14 @@ ul{list-style:none}
 .foot-col a:hover{color:#fff}
 .foot-bottom{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:24px 0;font-size:.8rem;color:#7e8db0}
 @media(min-width:760px){.foot-top{grid-template-columns:1.6fr 1fr 1fr 1fr}}
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
-.reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel" data-presets="react">
-const { useState, useEffect } = React;
+const { useState, useEffect, useMemo } = React;
+
+const AICTE_FOLDER_URL = "https://drive.google.com/drive/folders/1fwgXa0EDTmuvWOG9Cj9W_0rtc5ZknU6D?usp=sharing";
 
 const DEPT_LINKS = [
   { label:"Computer Science & Engg. (CSE)", href:"departments.html?d=cse" },
@@ -148,19 +157,24 @@ const DEPT_LINKS = [
 const MORE_LINKS = [
   { label:"Notices & Tenders", href:"notices.html" },
   { label:"Research News", href:"research.html" },
-  { label:"Grievance Redressal", href:"https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform", ext:true },
-  { label:"E-magazine", href:"emagazine.html", ext:true },
+  { label:"E-magazine", href:"emagazine.html" },
   { label:"AICTE EOA Reports", href:"aicte.html" },
+  { label:"Grievance Redressal", href:"https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform", ext:true },
   { label:"Anti Ragging", href:"https://drive.google.com/file/d/1KWXbm0YFWtOaYugpUSLzTMPNDcxwK43V/view?usp=sharing", ext:true },
   { label:"NIRF", href:"https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing", ext:true },
 ];
+
+function fmtDate(iso){ if(!iso) return ""; const d=new Date(iso); return isNaN(d)?"":d.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}); }
+function timeAgo(iso){ if(!iso) return ""; const d=new Date(iso); if(isNaN(d)) return ""; const days=Math.floor((Date.now()-d.getTime())/86400000); if(days<=0) return "today"; if(days===1) return "yesterday"; if(days<30) return days+" days ago"; if(days<60) return "1 month ago"; if(days<365) return Math.floor(days/30)+" months ago"; return Math.floor(days/365)+" yr ago"; }
+const isNew=(iso)=>{ const d=new Date(iso); return !isNaN(d) && (Date.now()-d.getTime())<21*86400000; };
+const KIND_LABEL={pdf:"PDF",doc:"DOC",sheet:"XLS",slide:"PPT",image:"IMG",folder:"DIR",file:"FILE"};
+
 const Ico={
   mail:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" strokeWidth="2"/></svg>,
   phone:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-3 2a12 12 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg>,
-  pin:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.7 7-11a7 7 0 10-14 0c0 5.3 7 11 7 11z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="2"/></svg>,
-  globe:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18" stroke="currentColor" strokeWidth="2"/></svg>,
-  user:()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>,
-  send:()=><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  search:()=><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>,
+  open:()=><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  doc:()=><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/><path d="M14 3v4h4M9 13h6M9 17h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>,
 };
 function Crest(){return(
   <svg className="crest" viewBox="0 0 64 64" aria-hidden="true">
@@ -171,10 +185,10 @@ function Crest(){return(
   </svg>);}
 function Weave({opacity}){return(
   <svg className="weave-bg" preserveAspectRatio="none" viewBox="0 0 800 600" aria-hidden="true" style={{opacity}}>
-    <defs><pattern id="cw" width="40" height="40" patternUnits="userSpaceOnUse">
+    <defs><pattern id="aw" width="40" height="40" patternUnits="userSpaceOnUse">
       <path d="M0 0 H40 M0 13 H40 M0 26 H40" stroke="rgba(110,139,190,.5)" strokeWidth="1"/>
       <path d="M0 0 V40 M13 0 V40 M26 0 V40" stroke="rgba(216,163,59,.28)" strokeWidth="1"/>
-    </pattern></defs><rect width="800" height="600" fill="url(#cw)"/>
+    </pattern></defs><rect width="800" height="600" fill="url(#aw)"/>
   </svg>);}
 function BrandLogos(){return(
   <a className="brand" href="index.html" aria-label="GCETTS home">
@@ -216,9 +230,9 @@ function Header(){
             <a href="gallery.html">Gallery</a>
             <a href="notices.html">Notices</a>
             <Dropdown label="More" items={MORE_LINKS}/>
-            <a href="contact.html" className="active">Contact</a>
+            <a href="contact.html">Contact</a>
           </div>
-          <a className="nav-cta" href="#contactform">Send a message</a>
+          <a className="nav-cta" href={AICTE_FOLDER_URL} target="_blank" rel="noopener">Open Drive folder</a>
           <button className={"burger"+(open?" open":"")} aria-label="Toggle menu" aria-expanded={open} onClick={()=>setOpen(!open)}><span></span><span></span><span></span></button>
         </nav>
       </div>
@@ -259,11 +273,11 @@ function Footer(){return(
         <a href="gallery.html">Gallery</a>
         <a href="research.html">Research News</a>
       </div>
-      <div className="foot-col"><h4>Reach us</h4>
-        <a href="notices.html">Notices &amp; Tenders</a>
+      <div className="foot-col"><h4>Disclosures</h4>
+        <a href="aicte.html">AICTE EOA Reports</a>
+        <a href="https://drive.google.com/file/d/1BOHoAtYIDRr2wKsBuVjY6SV4sKOqBXTB/view?usp=sharing" target="_blank" rel="noopener">NIRF</a>
+        <a href="https://drive.google.com/file/d/15FVdwql1a778Q3-t9AP7jdPg_qErUB2a/view?usp=sharing" target="_blank" rel="noopener">Mandatory Disclosure</a>
         <a href="contact.html">Contact</a>
-        <a href="mailto:info@gcetts.ac.in">info@gcetts.ac.in</a>
-        <a href="tel:+9103326621058">(033) 2662-1058</a>
       </div>
     </div>
     <div className="foot-bottom">
@@ -272,110 +286,77 @@ function Footer(){return(
     </div>
   </div></footer>);}
 
-function ContactForm(){
-  const [f,setF]=useState({name:"",email:"",subject:"",message:""});
-  const on=(k)=>(e)=>setF({...f,[k]:e.target.value});
-  const submit=(e)=>{
-    e.preventDefault();
-    const subject=encodeURIComponent(f.subject||("Website enquiry from "+(f.name||"visitor")));
-    const body=encodeURIComponent("Name: "+f.name+"\nEmail: "+f.email+"\n\n"+f.message);
-    window.location.href="mailto:info@gcetts.ac.in?subject="+subject+"&body="+body;
-  };
+function Row({it}){
   return (
-    <form className="form-card reveal" id="contactform" onSubmit={submit}>
-      <div className="row2">
-        <div className="field">
-          <label htmlFor="cn">Your name</label>
-          <input id="cn" type="text" required value={f.name} onChange={on("name")} placeholder="Full name" />
-        </div>
-        <div className="field">
-          <label htmlFor="ce">Email</label>
-          <input id="ce" type="email" required value={f.email} onChange={on("email")} placeholder="you@example.com" />
-        </div>
-      </div>
-      <div className="field">
-        <label htmlFor="cs">Subject</label>
-        <input id="cs" type="text" value={f.subject} onChange={on("subject")} placeholder="What is this about?" />
-      </div>
-      <div className="field">
-        <label htmlFor="cm">Message</label>
-        <textarea id="cm" rows="5" required value={f.message} onChange={on("message")} placeholder="Write your message…"></textarea>
-      </div>
-      <button className="btn btn-gold" type="submit">{Ico.send()} Send message</button>
-      <p className="form-note">This opens your email app with the message ready to send to info@gcetts.ac.in.</p>
-      <div className="alt">
-        For formal complaints, please use the <a href="https://docs.google.com/forms/d/e/1FAIpQLSdkeo-BajebDNM2stkQoeycfOr7VeJg7p6dFdUEFU-qEcYaPw/viewform" target="_blank" rel="noopener">Grievance Redressal form ↗</a>.
-      </div>
-    </form>
+    <a className="frow" href={it.url} target="_blank" rel="noopener">
+      <span className={"ficon k-"+(it.kind||"file")}>{KIND_LABEL[it.kind]||"FILE"}</span>
+      <span className="fmeta">
+        <span className="t">{it.name}</span>
+        <span className="d">
+          {it.date && <span>{fmtDate(it.date)}</span>}
+          {it.date && <span>· {timeAgo(it.date)}</span>}
+          {isNew(it.date) && <span className="newbadge">New</span>}
+        </span>
+      </span>
+      <span className="fopen">{Ico.open()}<span>{it.kind==="folder"?"Open":"View"}</span></span>
+    </a>
   );
 }
 
 function App(){
+  const [q,setQ]=useState("");
+  const [data,setData]=useState(null);
+
   useEffect(()=>{
-    const els=document.querySelectorAll('.reveal');
-    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){els.forEach(e=>e.classList.add('in'));return;}
-    const io=new IntersectionObserver(en=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.06});
-    els.forEach(e=>io.observe(e));return ()=>io.disconnect();
+    let on=true;
+    const p = (window.DriveFeed ? window.DriveFeed.load() : Promise.resolve({aicte:[]}));
+    p.then(d=>{ if(on) setData(d.aicte||[]); }).catch(()=>{ if(on) setData([]); });
+    return ()=>{on=false;};
   },[]);
-  const map="https://maps-api-ssl.google.com/maps?hl=en-US&ll=22.750877,88.35267&output=embed&q=12,+William+Carey+Sarani,+Serampore,+Hooghly,+West+Bengal+712201,+India+(Government+College+of+Engineering+and+Textile+Technology+-+Serampore)&z=18";
+
+  const list = useMemo(()=>{
+    if(!data) return [];
+    const term=q.trim().toLowerCase();
+    return term ? data.filter(x=>(x.name||"").toLowerCase().includes(term)) : data;
+  },[data,q]);
+
   return (
     <React.Fragment>
-      <a className="skip" href="#main">Skip to content</a>
+      <a className="skip" href="#feed">Skip to list</a>
       <Header/>
-      <section className="chero">
+      <section className="ahero">
         <Weave opacity={.4}/><div className="glow"></div>
         <div className="wrap">
-          <div className="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Contact</div>
-          <span className="eyebrow on-dark">Get in touch</span>
-          <h1>Contact <em>GCETTS</em>.</h1>
-          <p>Questions about admissions, academics or the institute? Reach us by phone or email, drop by the campus on the banks of the Ganga, or send a message below.</p>
+          <div className="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; AICTE EOA Reports</div>
+          <span className="eyebrow on-dark">Disclosures</span>
+          <h1>AICTE <em>EOA</em> reports.</h1>
+          <p>Extension of Approval (EOA) letters issued by the All India Council for Technical Education. Files are listed newest first and update automatically as new approvals are added.</p>
         </div>
       </section>
 
-      <main className="cbody" id="main">
+      <div className="toolbar">
         <div className="wrap">
-          <div className="cgrid">
-            <div className="reveal">
-              <h2 className="sec-h">Reach us</h2>
-              <p className="sec-sub">Office hours are observed on all working days as per the institute calendar.</p>
-              <div className="ci-list">
-                <div className="ci-row">
-                  <div className="ci-ico">{Ico.pin()}</div>
-                  <div><div className="ci-k">Address</div>
-                    <div className="ci-v">Govt. College of Engineering &amp; Textile Technology<br/>12, William Carey Road, Serampore, Dist. Hooghly<br/>West Bengal — PIN 712201, India (beside the Ganga)</div></div>
-                </div>
-                <div className="ci-row">
-                  <div className="ci-ico">{Ico.phone()}</div>
-                  <div><div className="ci-k">Telephone</div>
-                    <div className="ci-v"><a href="tel:+9103326621058">+91 (033) 2662-1058</a>, 3156<br/><span style={{fontWeight:400,fontSize:".85rem",color:"var(--ink-soft)"}}>Fax: +91 (033) 2662-1058</span></div></div>
-                </div>
-                <div className="ci-row">
-                  <div className="ci-ico">{Ico.mail()}</div>
-                  <div><div className="ci-k">Email</div>
-                    <div className="ci-v"><a href="mailto:info@gcetts.ac.in">info@gcetts.ac.in</a></div></div>
-                </div>
-                <div className="ci-row">
-                  <div className="ci-ico">{Ico.user()}</div>
-                  <div><div className="ci-k">Admissions enquiry</div>
-                    <div className="ci-v">Prof. (Dr.) S. S. Mahish · <a href="tel:+917890195116">+91 78901 95116</a></div></div>
-                </div>
-                <div className="ci-row">
-                  <div className="ci-ico">{Ico.globe()}</div>
-                  <div><div className="ci-k">Website</div>
-                    <div className="ci-v"><a href="https://www.gcetts.ac.in" target="_blank" rel="noopener">www.gcetts.ac.in</a></div></div>
-                </div>
-              </div>
-              <div className="map-frame">
-                <iframe src={map} title="GCETTS location map" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="sec-h">Send a message</h2>
-              <p className="sec-sub">We'll get back to you at the email you provide.</p>
-              <ContactForm/>
-            </div>
+          <div className="count">{data ? <span><b>{list.length}</b> item{list.length===1?"":"s"}</span> : "Loading…"}</div>
+          <div className="search">
+            {Ico.search()}
+            <input type="search" placeholder="Search reports…" value={q} onChange={e=>setQ(e.target.value)} aria-label="Search AICTE EOA reports"/>
           </div>
+        </div>
+      </div>
+
+      <main className="feed" id="feed">
+        <div className="wrap">
+          {!data ? (
+            <div className="feed-list">{[0,1,2,3].map(i=><div className="skel" key={i}></div>)}</div>
+          ) : list.length>0 ? (
+            <div className="feed-list">{list.map((it,i)=><Row key={i} it={it}/>)}</div>
+          ) : (
+            <div className="state">
+              <div className="ic">{Ico.doc()}</div>
+              <b>{q ? "No matches found" : "Reports will appear here"}</b>
+              {q ? "Try a different search term." : <span>EOA letters added to the Drive folder show up here automatically. You can also <a href={AICTE_FOLDER_URL} target="_blank" rel="noopener">open the folder directly</a>.</span>}
+            </div>
+          )}
         </div>
       </main>
       <Footer/>

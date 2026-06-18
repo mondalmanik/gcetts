@@ -132,7 +132,15 @@
             researchHighlights = rimgs.map(function (x) { return resolveImg(x, 1200); });
           } catch (e) { researchHighlights = []; }
         }
-        return { notices: notices, tenders: tenders, latestNews: latestNews, researchHighlights: researchHighlights, source: source };
+        // AICTE EOA reports (documents in a Drive folder)
+        var aicte = [];
+        if (Array.isArray(window.AICTE_DATA)) {
+          aicte = sortDesc(window.AICTE_DATA);
+        } else if (cfg.apiKey && cfg.aicteFolder) {
+          try { aicte = await fetchFolder(cfg.apiKey, folderId(cfg.aicteFolder)); }
+          catch (e) { aicte = []; }
+        }
+        return { notices: notices, tenders: tenders, latestNews: latestNews, researchHighlights: researchHighlights, aicte: aicte, source: source };
       })();
       return _cache;
     }
