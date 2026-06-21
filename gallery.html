@@ -576,9 +576,7 @@ function App(){
               <div className="album-grid">
                 {GALLERY.map(ev=><AlbumCard key={ev.id} ev={ev} onOpen={()=>openAlbum(ev.id)} />)}
               </div>
-              <p className="mono" style={{marginTop:"30px",fontSize:".78rem",color:"var(--ink-soft)"}}>
-                Drop images into <b>assets/gallery/&lt;event&gt;/</b>, or auto-import a shared Google&nbsp;Drive folder with <b>build_gallery_from_drive.py</b>.
-              </p>
+              
             </div>
           </main>
         </React.Fragment>
