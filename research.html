@@ -312,7 +312,26 @@ function App(){
       </section>
 
       <main id="main">
-        <section className="issues" id="issues">
+        
+        <section>
+          <div className="wrap">
+            <div className="sec-head reveal">
+              <span className="eyebrow">By department</span>
+              <h2>Research &amp; thrust areas</h2>
+              <p>Each department brings its own focus — from artificial intelligence and data science to the mechanical and chemical processing of textiles.</p>
+            </div>
+            <div className="tcards">
+              {THRUST.map(t=>(
+                <div className="tcard reveal" key={t.code}>
+                  <span className="code">DEPT · {t.code}</span>
+                  <h3>{t.name}</h3>
+                  <div className="taglist">{t.areas.map((a,i)=><span className="tag" key={i}>{a}</span>)}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+<section className="issues" id="issues">
           <div className="wrap">
             <div className="sec-head reveal">
               <span className="eyebrow">Newsletter</span>
@@ -334,25 +353,6 @@ function App(){
             )}
           </div>
         </section>
-        <section>
-          <div className="wrap">
-            <div className="sec-head reveal">
-              <span className="eyebrow">By department</span>
-              <h2>Research &amp; thrust areas</h2>
-              <p>Each department brings its own focus — from artificial intelligence and data science to the mechanical and chemical processing of textiles.</p>
-            </div>
-            <div className="tcards">
-              {THRUST.map(t=>(
-                <div className="tcard reveal" key={t.code}>
-                  <span className="code">DEPT · {t.code}</span>
-                  <h3>{t.name}</h3>
-                  <div className="taglist">{t.areas.map((a,i)=><span className="tag" key={i}>{a}</span>)}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         
       </main>
       <Footer/>
