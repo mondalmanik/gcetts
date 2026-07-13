@@ -140,7 +140,8 @@ const { useState, useEffect } = React;
    Each: { title, year, url, kind:"pdf"|"doc"|... }.
    You may also override from research-data.js via window.RESEARCH_DATA. */
 const DEFAULT_ISSUES = [
-  { title:"Research News — Issue 2025", year:"2025", url:"https://drive.google.com/file/d/1lS_7osmgw6yn3488IINrEoY9kAzf-s-e/view?usp=sharing", kind:"pdf" },
+  { title:"GCETTS Research News Book — 2026", year:"2026", url:"https://drive.google.com/file/d/1gjQNKnamSXe8H7Gz3vPbcPXvQu6T6Tfe/view?usp=sharing", kind:"pdf" }
+  { title:"GCETTS Research News Book — 2025", year:"2025", url:"https://drive.google.com/file/d/1lS_7osmgw6yn3488IINrEoY9kAzf-s-e/view?usp=sharing", kind:"pdf" },
 ];
 const ISSUES = (typeof window!=="undefined" && window.RESEARCH_DATA && window.RESEARCH_DATA.length) ? window.RESEARCH_DATA : DEFAULT_ISSUES;
 
@@ -311,25 +312,6 @@ function App(){
       </section>
 
       <main id="main">
-        <section>
-          <div className="wrap">
-            <div className="sec-head reveal">
-              <span className="eyebrow">By department</span>
-              <h2>Research &amp; thrust areas</h2>
-              <p>Each department brings its own focus — from artificial intelligence and data science to the mechanical and chemical processing of textiles.</p>
-            </div>
-            <div className="tcards">
-              {THRUST.map(t=>(
-                <div className="tcard reveal" key={t.code}>
-                  <span className="code">DEPT · {t.code}</span>
-                  <h3>{t.name}</h3>
-                  <div className="taglist">{t.areas.map((a,i)=><span className="tag" key={i}>{a}</span>)}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="issues" id="issues">
           <div className="wrap">
             <div className="sec-head reveal">
@@ -352,6 +334,26 @@ function App(){
             )}
           </div>
         </section>
+        <section>
+          <div className="wrap">
+            <div className="sec-head reveal">
+              <span className="eyebrow">By department</span>
+              <h2>Research &amp; thrust areas</h2>
+              <p>Each department brings its own focus — from artificial intelligence and data science to the mechanical and chemical processing of textiles.</p>
+            </div>
+            <div className="tcards">
+              {THRUST.map(t=>(
+                <div className="tcard reveal" key={t.code}>
+                  <span className="code">DEPT · {t.code}</span>
+                  <h3>{t.name}</h3>
+                  <div className="taglist">{t.areas.map((a,i)=><span className="tag" key={i}>{a}</span>)}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        
       </main>
       <Footer/>
     </React.Fragment>
